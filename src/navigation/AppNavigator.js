@@ -1,5 +1,5 @@
 import React from "react";
-import { createDrawerNavigator } from '@react-navigation/drawer';
+import { createDrawerNavigator, DrawerContentScrollView, DrawerItemList, DrawerItem, } from '@react-navigation/drawer';
 import { NavigationContainer, DrawerActions, useNavigation } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -13,7 +13,6 @@ import { Icon } from 'react-native-elements'
 
 import Home from "../screens/Home";
 import Post from "../screens/Post"
-import SecondScreen from "../screens/SecondScreen";
 import Search from "../screens/Search"
 import Profile from "../screens/Profile";
 import Leaderboard from "../screens/Leaderboard";
@@ -46,7 +45,7 @@ const Main = () => {
   );
 };
 
-function LogoTitle() {
+const LogoTitle = () => {
   return (
     <Image
       style={{ width: 50, height: 50 }}
@@ -58,9 +57,30 @@ function LogoTitle() {
 const MyDrawer = () => {
   const { isDarkmode } = useTheme();
   return (
-      <Drawer.Navigator initialRouteName="Home" screenOptions={{headerShown: false, drawerPosition:"right", drawerStyle: {borderTopColor: isDarkmode ? themeColor.dark100 : "#c0c0c0",backgroundColor: isDarkmode ? themeColor.dark200 : "#ffffff"},drawerLabelStyle:{color: isDarkmode ? "#ffffff" : "#000000"}}}>
-        <Drawer.Screen name="Notification" component={MainTabs} />
+      <Drawer.Navigator initialRouteName="Home" drawerContent={(props) => <CustomDrawerContent {...props} />} screenOptions={{headerShown: false, drawerPosition:"right", drawerStyle: {borderTopColor: isDarkmode ? themeColor.dark100 : "#c0c0c0",backgroundColor: isDarkmode ? themeColor.dark200 : "#ffffff"},}}>
+        <Drawer.Screen name="Notification" component={MainTabs} options={{drawerItemStyle: { height: 0 }}} />
       </Drawer.Navigator>
+  );
+}
+
+const renderFields = (notifications) => {
+    const { isDarkmode } = useTheme();
+  const notification = notifications;
+  const fields = [];
+  for (let i=0; i < notification.length; i++) {
+      fields.push(
+        <DrawerItem label= {notification[i]} labelStyle = {{color: isDarkmode ? "#ffffff" : "#000000"}} />
+      );
+  }
+  return fields;
+}
+notificationList = ["test1", "test2"]
+function CustomDrawerContent(props) {
+  return (
+    <DrawerContentScrollView contentContainerStyle={{ paddingTop: 0 }} {...props} >
+      <DrawerItemList {...props}  />
+      {renderFields(notificationList)}
+    </DrawerContentScrollView>
   );
 }
 
