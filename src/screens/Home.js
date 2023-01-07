@@ -1,18 +1,43 @@
 import React from "react";
-import { View, Linking } from "react-native";
+import { View, Linking, ScrollView } from "react-native";
 import {
   Layout,
   Button,
   Text,
   Section,
   SectionContent,
+  themeColor,
   useTheme,
 } from "react-native-rapi-ui";
+
+const renderPosts = (posts) => {
+const fields = [];
+for (let i=0; i < posts.length; i++) {
+    fields.push(
+      <Section key = {posts[i]}>
+        <SectionContent>
+      <Text>
+        {posts[i]}
+      </Text>
+      </SectionContent>
+      </Section>
+    );
+}
+return fields;
+}
+
+function postDisplay() {
+var postList = ["post 1", "post 2", "post 3", "post 4", "post 5", "post 6", "post 7", "post 8", "post 9"]
+return (
+  renderPosts(postList)
+);
+}
 
 
 export default function ({ navigation }) {
   const { isDarkmode, setTheme } = useTheme();
   return (
+    <ScrollView backgroundColor = {isDarkmode ? "#191921" : "#f7f7f7"}>
     <Layout>
       <View
         style={{
@@ -20,8 +45,11 @@ export default function ({ navigation }) {
           alignItems: "center",
           justifyContent: "center",
           marginHorizontal: 20,
+          paddingTop: 20,
+          top: -45
         }}
       >
+        {postDisplay()}
         <Section>
           <SectionContent>
             <Text fontWeight="bold" style={{ textAlign: "center" }}>
@@ -71,5 +99,6 @@ export default function ({ navigation }) {
         </Section>
       </View>
     </Layout>
+    </ScrollView>
   );
 }

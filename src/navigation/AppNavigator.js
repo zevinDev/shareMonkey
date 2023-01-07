@@ -69,12 +69,12 @@ const renderFields = (notifications) => {
   const fields = [];
   for (let i=0; i < notification.length; i++) {
       fields.push(
-        <DrawerItem label= {notification[i]} labelStyle = {{color: isDarkmode ? "#ffffff" : "#000000"}} />
+        <DrawerItem key={notification[i]} label= {notification[i]} labelStyle = {{color: isDarkmode ? "#ffffff" : "#000000"}} />
       );
   }
   return fields;
 }
-notificationList = ["test1", "test2"]
+const notificationList = ["test1", "test2"]
 function CustomDrawerContent(props) {
   return (
     <DrawerContentScrollView contentContainerStyle={{ paddingTop: 0 }} {...props} >
