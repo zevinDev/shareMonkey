@@ -1,4 +1,4 @@
-import React from "react";
+import {React} from "react";
 import { createDrawerNavigator, DrawerContentScrollView, DrawerItemList, DrawerItem, } from '@react-navigation/drawer';
 import { NavigationContainer, DrawerActions, useNavigation } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -9,7 +9,6 @@ import { themeColor, useTheme } from "react-native-rapi-ui";
 import TabBarIcon from "../components/utils/TabBarIcon";
 import TabBarText from "../components/utils/TabBarText";
 import { Icon } from 'react-native-elements'
-
 
 import Home from "../screens/Home";
 import Post from "../screens/Post"
@@ -22,8 +21,10 @@ const Drawer = createDrawerNavigator();
 const MainStack = createNativeStackNavigator();
 
 const Main = () => {
+
   const { isDarkmode } = useTheme();
   const navigation = useNavigation();
+
   return (
     <MainStack.Navigator
       screenOptions={{
@@ -63,8 +64,8 @@ const MyDrawer = () => {
   );
 }
 
-const renderFields = (notifications) => {
-    const { isDarkmode } = useTheme();
+const renderFields = (notifications)  => {
+  const { isDarkmode } = useTheme();
   const notification = notifications;
   const fields = [];
   for (let i=0; i < notification.length; i++) {
@@ -74,6 +75,7 @@ const renderFields = (notifications) => {
   }
   return fields;
 }
+
 const notificationList = ["test1", "test2"]
 function CustomDrawerContent(props) {
   return (

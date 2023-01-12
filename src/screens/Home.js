@@ -1,42 +1,58 @@
-import React from "react";
-import { View, Linking, ScrollView } from "react-native";
+import { maxWidth } from "@mui/system";
+import {React, useState, useEffect} from "react";
+import { View, Linking, ScrollView, Image, Dimensions } from "react-native";
 import {
   Layout,
   Button,
   Text,
   Section,
   SectionContent,
-  themeColor,
   useTheme,
 } from "react-native-rapi-ui";
-
-const renderPosts = (posts) => {
-const fields = [];
-for (let i=0; i < posts.length; i++) {
-    fields.push(
-      <Section key = {posts[i]}>
-        <SectionContent>
-      <Text>
-        {posts[i]}
-      </Text>
-      </SectionContent>
-      </Section>
-    );
-}
-return fields;
-}
-
-function postDisplay() {
-var postList = ["post 1", "post 2", "post 3", "post 4", "post 5", "post 6", "post 7", "post 8", "post 9"]
-return (
-  renderPosts(postList)
-);
-}
-
+import { getFeed, getPost } from "../components/apiRefrences";
 
 export default function ({ navigation }) {
+  const [posts, setPosts] = useState([]);
   const { isDarkmode, setTheme } = useTheme();
-  return (
+
+  const renderPosts = (posts) => {
+    var fields = [];
+    const starter = " (@"
+    const finisher = ")"
+    for (let i=0; i < posts.length; i++) {
+        fields.push(
+          <Section key = {posts[i].postID} style = {{width:"100%", height: Dimensions.get('window').width}}>
+          <SectionContent>
+          <Text>
+            {posts[i].name} {starter} {posts[i].username} {finisher}
+          </Text>
+          <Image
+            style={{width:"100%", aspectRatio:1}}
+            source={{uri: 'https://media.npr.org/assets/img/2017/09/12/macaca_nigra_self-portrait-3e0070aa19a7fe36e802253048411a38f14a79f8-s1100-c50.jpg'}}
+          />
+          </SectionContent>
+          </Section>
+        );
+    }
+    setPosts(fields)
+    return;
+    }
+    
+    const handleFeed = async (username) => {
+      const postList = await getFeed(username);
+      var newTest = JSON.parse(postList);
+      var postInfo = [];
+      for(var i = 0; i < newTest.length; i++){
+        var currentPost = await getPost(newTest[i]);
+        postInfo[i] = currentPost;
+      }
+      renderPosts(postInfo)
+      return;
+    };
+    
+    const runOnce = () => {handleFeed("test1"); return;}
+
+   return (
     <ScrollView backgroundColor = {isDarkmode ? "#191921" : "#f7f7f7"}>
     <Layout>
       <View
@@ -49,7 +65,9 @@ export default function ({ navigation }) {
           top: -45
         }}
       >
-        {postDisplay()}
+
+        {useEffect(() => {runOnce();}, [])}
+        {posts}
         <Section>
           <SectionContent>
             <Text fontWeight="bold" style={{ textAlign: "center" }}>
