@@ -21,8 +21,7 @@ const Drawer = createDrawerNavigator();
 const MainStack = createNativeStackNavigator();
 
 const Main = () => {
-
-  const { isDarkmode } = useTheme();
+  const { isDarkmode, setTheme } = useTheme();
   const navigation = useNavigation();
 
   return (
