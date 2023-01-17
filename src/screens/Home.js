@@ -1,26 +1,39 @@
 import { React, useState, useEffect } from "react";
-import { View, Linking, ScrollView, TouchableHighlight} from "react-native";
+import { View, Linking, ScrollView, TouchableHighlight } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import {Layout, Button, Text, Section, SectionContent, SectionImage, useTheme, Avatar,} from "react-native-rapi-ui";
-import { getFeed, getPost, likePost, dislikePost } from "../components/apiRefrences";
-import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import {
+  Layout,
+  Button,
+  Text,
+  Section,
+  SectionContent,
+  SectionImage,
+  useTheme,
+  Avatar,
+} from "react-native-rapi-ui";
+import {
+  getFeed,
+  getPost,
+  likePost,
+  dislikePost,
+} from "../components/apiRefrences";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function ({ navigation }) {
   const [posts, setPosts] = useState([]);
   const { isDarkmode, setTheme } = useTheme();
-  const [username, setUsername] = useState('test1');
-  const [token, setToken] = useState('8hl42ie18atptf2jkq42sm');
+  const [username, setUsername] = useState("test1");
+  const [token, setToken] = useState("8hl42ie18atptf2jkq42sm");
 
   const handle = () => {
-    AsyncStorage.setItem('Username', username);
-    AsyncStorage.setItem('Token', token);
+    AsyncStorage.setItem("Username", username);
+    AsyncStorage.setItem("Token", token);
   };
   const renderPosts = (posts) => {
     var fields = [];
     const starter = "   (@";
     const finisher = ")";
-    for (let i = 0; i < posts.length; i++) {  
+    for (let i = 0; i < posts.length; i++) {
       fields.push(
         <Section key={posts[i].postID} style={{ width: "100%" }}>
           <SectionContent style={{ flexDirection: "row" }}>
@@ -38,21 +51,35 @@ export default function ({ navigation }) {
           </SectionContent>
           {displayPictures(posts[i].postPicture)}
           <SectionContent style={{ flexDirection: "row" }}>
-          <TouchableHighlight onPress={async () => {
-            if(posts[i].isLiked == false){
-              await likePost(posts[i].postID, await AsyncStorage.getItem('Username'), await AsyncStorage.getItem('Token'));
-            } 
-            else{
-              await dislikePost(posts[i].postID, await AsyncStorage.getItem('Username'), await AsyncStorage.getItem('Token'));
-            }
-          }   
-          }>
-            <Ionicons
-              name={posts[i].isLiked ? "heart" : "heart-outline"}
-              style={{ marginBottom: -7 }}
-              size={24}
-              color={posts[i].isLiked ? "#CE4343" : isDarkmode ? "#000000" : "#ffffff" }
-            />
+            <TouchableHighlight
+              onPress={async () => {
+                if (posts[i].isLiked == false) {
+                  await likePost(
+                    posts[i].postID,
+                    await AsyncStorage.getItem("Username"),
+                    await AsyncStorage.getItem("Token")
+                  );
+                } else {
+                  await dislikePost(
+                    posts[i].postID,
+                    await AsyncStorage.getItem("Username"),
+                    await AsyncStorage.getItem("Token")
+                  );
+                }
+              }}
+            >
+              <Ionicons
+                name={posts[i].isLiked ? "heart" : "heart-outline"}
+                style={{ marginBottom: -7 }}
+                size={24}
+                color={
+                  posts[i].isLiked
+                    ? "#CE4343"
+                    : isDarkmode
+                    ? "#000000"
+                    : "#ffffff"
+                }
+              />
             </TouchableHighlight>
           </SectionContent>
         </Section>
@@ -77,14 +104,14 @@ export default function ({ navigation }) {
     for (var i = 0; i < newTest.length; i++) {
       var currentPost = await getPost(newTest[i]);
       postInfo[i] = currentPost;
-      for(var l = 0; l < postInfo[i].likes.length; l++){
-        var postLikes = postInfo[i].likes
-        if(postLikes[l] == await AsyncStorage.getItem('Username')){
-          postInfo[i].isLiked = true
+      for (var l = 0; l < postInfo[i].likes.length; l++) {
+        var postLikes = postInfo[i].likes;
+        if (postLikes[l] == (await AsyncStorage.getItem("Username"))) {
+          postInfo[i].isLiked = true;
           break;
-        } else postInfo[i].isLiked = false
+        } else postInfo[i].isLiked = false;
       }
-      if(postInfo[i].likes.length == 0) postInfo[i].isLiked = false;
+      if (postInfo[i].likes.length == 0) postInfo[i].isLiked = false;
     }
     renderPosts(postInfo);
     return;

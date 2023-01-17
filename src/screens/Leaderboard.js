@@ -13,24 +13,26 @@ export default function ({ navigation }) {
   const [pickerValue, setPickerValue] = React.useState(null);
   const [leaderValue, setLeaderValue] = React.useState();
 
-  const getSelectedLeader = async(leaderType) => {
-	const oldLeaderData = leaderValue;
-	const leaderData = await getLeaderboard(leaderType);
-	if(oldLeaderData != leaderData){
-	setLeaderValue(leaderData)
-	}
-  }
+  const getSelectedLeader = async (leaderType) => {
+    const oldLeaderData = leaderValue;
+    const leaderData = await getLeaderboard(leaderType);
+    if (oldLeaderData != leaderData) {
+      setLeaderValue(leaderData);
+    }
+  };
   const DisplayLeader = () => {
-	var field = []
-	if(leaderValue){
-		for(var i = 0; i < leaderValue.usernames.length; i++){
-			field.push(
-				<Text key = {leaderValue.usernames[i]}>{leaderValue.usernames[i]}: {leaderValue.points[i]}</Text>
-			)
-		}
-		return(field)
-	}
-  }
+    var field = [];
+    if (leaderValue) {
+      for (var i = 0; i < leaderValue.usernames.length; i++) {
+        field.push(
+          <Text key={leaderValue.usernames[i]}>
+            {leaderValue.usernames[i]}: {leaderValue.points[i]}
+          </Text>
+        );
+      }
+      return field;
+    }
+  };
 
   const items = [
     { label: "Weekly Leaderboard", value: "weekly" },
@@ -52,10 +54,13 @@ export default function ({ navigation }) {
           items={items}
           value={pickerValue}
           placeholder="Choose Leaderboard"
-          onValueChange={async (val) => {await getSelectedLeader(val); setPickerValue(val)}}
+          onValueChange={async (val) => {
+            await getSelectedLeader(val);
+            setPickerValue(val);
+          }}
         />
       </View>
-	  <DisplayLeader/>
+      <DisplayLeader />
     </Layout>
   );
 }

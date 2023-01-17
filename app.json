@@ -2,6 +2,8 @@
   "expo": {
     "name": "frontend",
     "slug": "frontend",
+    "currentFullName": "@realziez/frontend",
+    "originalFullName": "@realziez/frontend",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -19,7 +21,7 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "school-app"
+      "bundleIdentifier": "com.realziez.frontend"
     },
     "web": {
       "favicon": "./assets/favicon.png"
