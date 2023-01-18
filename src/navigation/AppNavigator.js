@@ -1,4 +1,3 @@
-//test
 import { React, useEffect, useState } from "react";
 import {
   createDrawerNavigator,
@@ -13,7 +12,7 @@ import {
 } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Image, View, TouchableOpacity } from "react-native";
+import { Image, View, TouchableOpacity, Animated } from "react-native";
 
 import {
   themeColor,
@@ -288,57 +287,56 @@ export default () => {
     };
 
     const Test = () => {
+      const [fadeAnim] = useState(new Animated.Value(0));
+
+      useEffect(() => {
+        Animated.timing(
+          fadeAnim,
+          {
+            toValue: 1,
+            duration: 2000,
+            useNativeDriver: true
+          }
+        ).start();
+      }, []);
+
       return (
-        <View>
+        <Animated.View
+          style={{
+            flexDirection: 'column',
+            height: 745,
+            padding: 20,
+            alignItems: 'center',
+            justifyContent: 'center',
+            opacity: fadeAnim,
+          }}
+        >
           {user && <ShowUserInfo />}
           {user == null && (
             <>
-              <Text style={{ fontSize: 35, fontWeight: "bold" }}>Welcome</Text>
-              <Text
-                style={{
-                  fontSize: 25,
-                  fontWeight: "bold",
-                  marginBottom: 20,
-                  color: "gray",
-                }}
-              >
-                Please login
-              </Text>
-              <TouchableOpacity
-                disabled={!request}
-                onPress={() => {
-                  promptAsync();
-                }}
-              >
-                <Image
-                  source={require("../../btn.png")}
-                  style={{ width: 300, height: 40 }}
-                />
+              <Image source={require("../../logo.jpg")} style={{ width: 65, height: 65 }} />
+              <Text></Text>
+              <Text style={{ fontSize: 35, alignItems: 'center', justifyContent: 'center', fontWeight: "bold" }}> Welcome to ShareMonkey</Text>
+              <Text style={{ fontSize: 25, fontWeight: "bold", marginBottom: 20, color: "gray" }}> Please Log In</Text>
+              <TouchableOpacity disabled={!request} onPress={() => { promptAsync(); }}>
+                <Image source={require("../../btn.png")} style={{ width: 300, height: 40 }} />
               </TouchableOpacity>
             </>
           )}
-          <Button
-            text="Skip Log In"
-            onPress={() => {
-              setloggedIn(true);
-            }}
-            style={{
-              marginTop: 10,
-            }}
-          />
-        </View>
-      );
+          <Button text="Skip Log In" onPress={() => { setloggedIn(true); }} style={{ marginTop: 10 }} />
+        </Animated.View>
+  );
     };
     return (
       <MainStack.Navigator
         screenOptions={{
-          headerShown: true,
+          headerShown: false,
           headerStyle: {
             backgroundColor: isDarkmode ? themeColor.dark200 : "#ffffff",
           },
         }}
       >
-        <MainStack.Screen name="Log In" component={Test} />
+        <MainStack.Screen name="Log In to ShareMonkey" component={Test} />
       </MainStack.Navigator>
     );
   };
