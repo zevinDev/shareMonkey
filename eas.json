@@ -18,6 +18,13 @@
         "resourceClass": "m1-medium"
       }
     },
+    "master": {
+      "distribution": "internal",
+      "channel": "master",
+      "ios": {
+        "resourceClass": "m1-medium"
+      }
+    },
     "production": {
       "channel": "production",
       "ios": {
