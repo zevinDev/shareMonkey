@@ -20,6 +20,7 @@
     "@react-navigation/native": "^6.1.1",
     "@react-navigation/native-stack": "^6.9.7",
     "@reduxjs/toolkit": "^1.9.1",
+    "@sentry/react-native": "4.9.0",
     "axios": "^1.2.2",
     "date-fns": "^2.29.3",
     "expo": "^47.0.13",
@@ -40,7 +41,11 @@
     "react-native-rapi-ui": "^0.2.1",
     "react-redux": "^8.0.5",
     "react-router": "^6.6.1",
-    "react-router-dom": "^6.6.1"
+    "react-router-dom": "^6.6.1",
+    "sentry-expo": "~6.0.0",
+    "expo-application": "~5.0.1",
+    "expo-constants": "~14.0.2",
+    "expo-device": "~5.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.19.3"

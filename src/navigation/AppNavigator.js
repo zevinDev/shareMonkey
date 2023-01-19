@@ -287,6 +287,7 @@ export default () => {
     };
 
     const Test = () => {
+      /*
       const [fadeAnim] = useState(new Animated.Value(0));
 
       useEffect(() => {
@@ -299,6 +300,7 @@ export default () => {
           }
         ).start();
       }, []);
+      */
 
       return (
         <Animated.View
@@ -308,7 +310,7 @@ export default () => {
             padding: 20,
             alignItems: 'center',
             justifyContent: 'center',
-            opacity: fadeAnim,
+            //opacity: fadeAnim,
           }}
         >
           {user && <ShowUserInfo />}
