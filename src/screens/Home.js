@@ -24,6 +24,7 @@ export default function ({ navigation }) {
   const { isDarkmode, setTheme } = useTheme();
   const [username, setUsername] = useState("test1");
   const [token, setToken] = useState("8hl42ie18atptf2jkq42sm");
+  const [liked, setLiked] = useState(false);
 
   const handle = () => {
     AsyncStorage.setItem("Username", username);
@@ -66,6 +67,7 @@ export default function ({ navigation }) {
                     await AsyncStorage.getItem("Token")
                   );
                 }
+                setLiked(true);
               }}
             >
               <Ionicons
@@ -120,6 +122,7 @@ export default function ({ navigation }) {
   const runOnce = () => {
     handleFeed();
     setTheme("dark");
+    setLiked(false);
     return;
   };
 
@@ -138,7 +141,7 @@ export default function ({ navigation }) {
         >
           {useEffect(() => {
             runOnce();
-          }, [])}
+          }, [liked])}
           {posts}
           {useEffect(() => {
             handle();
