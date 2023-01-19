@@ -287,47 +287,76 @@ export default () => {
     };
 
     const Test = () => {
-      /*
-      const [fadeAnim] = useState(new Animated.Value(0));
+          const [fadeAnimText1] = useState(new Animated.Value(0));
+          const [fadeAnimText2] = useState(new Animated.Value(0));
+          const [fadeAnimImage] = useState(new Animated.Value(0));
+          const [fadeAnimButton] = useState(new Animated.Value(0));
 
-      useEffect(() => {
-        Animated.timing(
-          fadeAnim,
-          {
-            toValue: 1,
-            duration: 2000,
-            useNativeDriver: true
-          }
-        ).start();
-      }, []);
-      */
-
-      return (
-        <Animated.View
-          style={{
-            flexDirection: 'column',
-            height: 745,
-            padding: 20,
+          useEffect(() => {
+            Animated.sequence([
+              Animated.parallel([
+                Animated.timing(fadeAnimText1, {
+                  toValue: 1,
+                  duration: 1000,
+                  useNativeDriver: true,
+                }),
+                Animated.timing(fadeAnimImage, {
+                  toValue: 1,
+                  duration: 1000,
+                  useNativeDriver: true,
+                }),
+              ]),
+              Animated.timing(fadeAnimText2, {
+                toValue: 1,
+                duration: 800,
+                delay: 500,
+                useNativeDriver: true,
+              }),
+              Animated.parallel([
+                Animated.timing(fadeAnimImage, {
+                  toValue: 1,
+                  duration: 1000,
+                  delay: 500,
+                  useNativeDriver: true,
+                }),
+                Animated.timing(fadeAnimButton, {
+                  toValue: 1,
+                  duration: 1000,
+                  delay: 500,
+                  useNativeDriver: true,
+                }),
+              ]),
+            ]).start();
+          }, []);
+          return (
+            <Animated.View
+              style={{
+                flexDirection: 'column',
+                height: 745,
+                padding: 20,
             alignItems: 'center',
             justifyContent: 'center',
-            //opacity: fadeAnim,
           }}
         >
           {user && <ShowUserInfo />}
           {user == null && (
             <>
-              <Image source={require("../../logo.jpg")} style={{ width: 65, height: 65 }} />
-              <Text></Text>
-              <Text style={{ fontSize: 35, alignItems: 'center', justifyContent: 'center', fontWeight: "bold" }}> Welcome to ShareMonkey</Text>
-              <Text style={{ fontSize: 25, fontWeight: "bold", marginBottom: 20, color: "gray" }}> Please Log In</Text>
-              <TouchableOpacity disabled={!request} onPress={() => { promptAsync(); }}>
-                <Image source={require("../../btn.png")} style={{ width: 300, height: 40 }} />
-              </TouchableOpacity>
+              <Animated.Image
+                source={require("../../logo.png")}
+                style={{ width: 150, height: 150, opacity: fadeAnimText1 }}
+              />
+              <Animated.Text style={{ opacity: fadeAnimText1, fontSize: 35, alignItems: 'center', justifyContent: 'center', fontWeight: "bold" }}> Welcome to ShareMonkey</Animated.Text>
+              <Animated.Text style={{ opacity: fadeAnimText2, fontSize: 25, fontWeight: "bold", marginBottom: 20, color: "gray" }}> Please Log In</Animated.Text>
+              <Animated.View style={{ opacity: fadeAnimButton }}>
+                <TouchableOpacity disabled={!request} onPress={() => { promptAsync(); }}>
+                  <Image source={require("../../btn.png")} style={{ width: 300, height: 40 }} />
+                </TouchableOpacity>
+                <Button text="Skip Log In" onPress={() => { setloggedIn(true); }} style={{ marginTop: 10 }} />
+              </Animated.View>
             </>
           )}
-          <Button text="Skip Log In" onPress={() => { setloggedIn(true); }} style={{ marginTop: 10 }} />
         </Animated.View>
-  );
+      );
     };
     return (
       <MainStack.Navigator
