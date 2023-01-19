@@ -25,9 +25,17 @@ export default function ({ navigation }) {
     if (leaderValue) {
       for (var i = 0; i < leaderValue.usernames.length; i++) {
         field.push(
-          <Text key={leaderValue.usernames[i]}>
-            {leaderValue.usernames[i]}: {leaderValue.points[i]}
-          </Text>
+          <Section key={leaderValue.usernames[i]} style={{ width: "90%", marginTop: 10, alignSelf: "center", justifyContent: "center" }}>
+            <SectionContent style={{ flexDirection: "row" }}>
+              <Text key={leaderValue.usernames[i]}>
+                {leaderValue.usernames[i]}:
+              </Text>
+              <Text key={leaderValue.points[i]} style={{ width: "100%", alignSelf: "right" }}>
+                {leaderValue.points[i]}
+              </Text>
+            </SectionContent>
+          </Section>
+
         );
       }
       return field;

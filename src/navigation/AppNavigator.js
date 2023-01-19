@@ -68,7 +68,11 @@ export default () => {
           name="Home"
           component={MyDrawer}
           options={{
-            headerTitle: (props) => <LogoTitle {...props} />,
+            headerLeft: (props) => <LogoTitle {...props} />,
+            headerTitle: () => [
+           
+              <Text key="emptyText">     </Text>,
+            ],
             headerRight: () => [
               <Icon
                 key="calendar"
@@ -99,7 +103,7 @@ export default () => {
     return (
       <Image
         style={{ width: 50, height: 50 }}
-        source={require("../../assets/favicon.png")}
+        source={require("../../logo.png")}
       />
     );
   };
@@ -303,6 +307,7 @@ export default () => {
                 Animated.timing(fadeAnimImage, {
                   toValue: 1,
                   duration: 1000,
+                  delay: 1,
                   useNativeDriver: true,
                 }),
               ]),
@@ -345,7 +350,8 @@ export default () => {
                 source={require("../../logo.png")}
                 style={{ width: 150, height: 150, opacity: fadeAnimText1 }}
               />
-              <Animated.Text style={{ opacity: fadeAnimText1, fontSize: 35, alignItems: 'center', justifyContent: 'center', fontWeight: "bold" }}> Welcome to ShareMonkey</Animated.Text>
+              <Animated.Text style={{ opacity: fadeAnimText1, fontSize: 35, alignItems: 'center', justifyContent: 'center', fontWeight: "bold" }}>Welcome to</Animated.Text>
+              <Animated.Text style={{ opacity: fadeAnimText1, fontSize: 35, alignItems: 'center', justifyContent: 'center', fontWeight: "bold" }}>ShareMonkey</Animated.Text>
               <Animated.Text style={{ opacity: fadeAnimText2, fontSize: 25, fontWeight: "bold", marginBottom: 20, color: "gray" }}> Please Log In</Animated.Text>
               <Animated.View style={{ opacity: fadeAnimButton }}>
                 <TouchableOpacity disabled={!request} onPress={() => { promptAsync(); }}>

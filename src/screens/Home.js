@@ -1,5 +1,5 @@
 import { React, useState, useEffect } from "react";
-import { View, Linking, ScrollView, TouchableHighlight } from "react-native";
+import { View, Linking, ScrollView, TouchableHighlight, Share } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import {
   Layout,
@@ -19,18 +19,21 @@ import {
 } from "../components/apiRefrences";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
+
 export default function ({ navigation }) {
   const [posts, setPosts] = useState([]);
   const { isDarkmode, setTheme } = useTheme();
   const [username, setUsername] = useState("test1");
   const [token, setToken] = useState("8hl42ie18atptf2jkq42sm");
   const [liked, setLiked] = useState(false);
+  const [state, setState] = useState();
 
   const handle = () => {
     AsyncStorage.setItem("Username", username);
     AsyncStorage.setItem("Token", token);
   };
   const renderPosts = (posts) => {
+
     var fields = [];
     const starter = "   (@";
     const finisher = ")";
@@ -50,6 +53,7 @@ export default function ({ navigation }) {
               {posts[i].name} {"\n"} {starter} {posts[i].username} {finisher}
             </Text>
           </SectionContent>
+
           {displayPictures(posts[i].postPicture)}
           <SectionContent style={{ flexDirection: "row" }}>
             <TouchableHighlight
@@ -83,6 +87,64 @@ export default function ({ navigation }) {
                 }
               />
             </TouchableHighlight>
+            <Text>    </Text>
+            <TouchableHighlight
+              onPress={async () => {
+                console.log("test");
+              }}
+            >
+              <Ionicons
+                name={"chatbubble-outline"}
+                style={{ marginBottom: -7 }}
+                size={24}
+                color={"#119e37"}
+              />
+            </TouchableHighlight>
+            <Text>    </Text>
+            
+            <TouchableHighlight
+              onPress={async () => {
+
+                Share.share(
+                  {
+                    title: 'test title',
+                    url: `https://fbla-backend.herokuapp.com/post/${posts[i].postID}`,
+                  },
+                  {
+                    excludedActivityTypes: [
+                      // 'com.apple.UIKit.activity.PostToWeibo',
+                      // 'com.apple.UIKit.activity.Print',
+                      // 'com.apple.UIKit.activity.CopyToPasteboard',
+                      // 'com.apple.UIKit.activity.AssignToContact',
+                      // 'com.apple.UIKit.activity.SaveToCameraRoll',
+                      // 'com.apple.UIKit.activity.AddToReadingList',
+                      // 'com.apple.UIKit.activity.PostToFlickr',
+                      // 'com.apple.UIKit.activity.PostToVimeo',
+                      // 'com.apple.UIKit.activity.PostToTencentWeibo',
+                      // 'com.apple.UIKit.activity.AirDrop',
+                      // 'com.apple.UIKit.activity.OpenInIBooks',
+                      // 'com.apple.UIKit.activity.MarkupAsPDF',
+                      // 'com.apple.reminders.RemindersEditorExtension',
+                      // 'com.apple.mobilenotes.SharingExtension',
+                      // 'com.apple.mobileslideshow.StreamShareService',
+                      // 'com.linkedin.LinkedIn.ShareExtension',
+                      // 'pinterest.ShareExtension',
+                      // 'com.google.GooglePlus.ShareExtension',
+                      // 'com.tumblr.tumblr.Share-With-Tumblr',
+                      // 'net.whatsapp.WhatsApp.ShareExtension', //WhatsApp
+                    ],
+                  }
+                );
+                }}
+            >
+              <Ionicons
+                name={"share-outline"}
+                style={{ marginBottom: -7, position: "right" }}
+                size={24}
+                color={"#118cd9"}
+              />
+            </TouchableHighlight>
+            
           </SectionContent>
         </Section>
       );
@@ -121,7 +183,7 @@ export default function ({ navigation }) {
 
   const runOnce = () => {
     handleFeed();
-    setTheme("dark");
+    setTheme("light");
     setLiked(false);
     return;
   };
