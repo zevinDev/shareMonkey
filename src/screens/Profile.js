@@ -40,6 +40,9 @@ export default function ({ navigation }) {
 					<SectionContent >
 					<Text fontWeight="bold" size="lg" style={{marginTop: -40, alignSelf:"center"}} >{'Official Account Of The Share Monkey Team'}</Text>
 					</SectionContent>
+					<SectionContent>
+					<Text fontWeight="bold" size="lg" style={{marginTop: -10, alignSelf:"center"}} >{"RSVP'd For: FBLA Regional Conference"}</Text>
+					</SectionContent>
 				</Section>
 					<Text fontWeight="bold" size="h3"> {"\n \n \n"} You Have No Posts {":("}</Text>
 			</View>
