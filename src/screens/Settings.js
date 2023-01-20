@@ -63,12 +63,22 @@ export default function ({ navigation }) {
 						/>
 						<Button
 							style={{ marginTop: 10 }}
-							text="Licence"
+							text="License"
 							leftContent={
 								<Ionicons name="information-circle-outline" size={20} color={"white"} />
 							}
 							status="info"
 							onPress={() => Linking.openURL("https://docs.google.com/document/d/1J3qcj_f82YXiCPp9uWlE4vsweOkIZDmQnEzomcGVAt8/edit?usp=sharing")
+							}
+						/>
+						<Button
+							style={{ marginTop: 10 }}
+							text="Documentation"
+							leftContent={
+								<Ionicons name="information-circle-outline" size={20} color={"white"} />
+							}
+							status="info"
+							onPress={() => Linking.openURL("https://docs.google.com/document/d/1-3rgmJNG3j3tUugxHXUwFDY1Bw4bYt3JQTwiNz2Sc-8/edit")
 							}
 						/>
 					</SectionContent>
