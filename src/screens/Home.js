@@ -16,6 +16,7 @@ import {
   getPost,
   likePost,
   dislikePost,
+  getUser,
 } from "../components/apiRefrences";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
@@ -32,30 +33,33 @@ export default function ({ navigation }) {
     AsyncStorage.setItem("Username", username);
     AsyncStorage.setItem("Token", token);
   };
-  const renderPosts = (posts) => {
+  const renderPosts = (posts, userInfo) => {
 
     var fields = [];
     const starter = "   (@";
     const finisher = ")";
     for (let i = 0; i < posts.length; i++) {
       fields.push(
-        <Section key={posts[i].postID} style={{ width: "100%" }}>
+        <Section key={posts[i].postID} style={{ width: "100%", marginTop:20}}>
           <SectionContent style={{ flexDirection: "row" }}>
             <Avatar
               source={{
-                uri: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwme89cM8YZvHcybGrZl_Obd9U9p5QabozJQ&usqp=CAU",
+                uri: userInfo[i].profilePicture,
               }}
               size="md"
               shape="round"
             />
             <Text>
               {"    "}
-              {posts[i].name} {"\n"} {starter} {posts[i].username} {finisher}
+              {userInfo[i].name} {"\n"} {starter} {posts[i].username} {finisher}
             </Text>
           </SectionContent>
 
           {displayPictures(posts[i].postPicture)}
-          <SectionContent style={{ flexDirection: "row" }}>
+          <SectionContent style={{marginTop:-10}}>
+            <Text fontWeight="bold">{posts[i].username}: {posts[i].description}</Text>
+          </SectionContent>
+          <SectionContent style={{ flexDirection: "row", marginTop:-30 }}>
             <TouchableHighlight
               onPress={async () => {
                 if (posts[i].isLiked == false) {
@@ -82,8 +86,8 @@ export default function ({ navigation }) {
                   posts[i].isLiked
                     ? "#CE4343"
                     : isDarkmode
-                    ? "#000000"
-                    : "#ffffff"
+                    ? "#ffffff"
+                    : "#000000"
                 }
               />
             </TouchableHighlight>
@@ -139,13 +143,14 @@ export default function ({ navigation }) {
             >
               <Ionicons
                 name={"share-outline"}
-                style={{ marginBottom: -7, position: "right" }}
+                style={{ marginBottom: -7}}
                 size={24}
                 color={"#118cd9"}
               />
             </TouchableHighlight>
             
           </SectionContent>
+
         </Section>
       );
     }
@@ -156,7 +161,7 @@ export default function ({ navigation }) {
   function displayPictures(picList) {
     var fields = [];
     for (let l = 0; l < picList.length; l++) {
-      fields.push(<SectionImage key={l} source={{ uri: picList[l] }} />);
+      fields.push(<SectionImage key={l} source={{ uri: picList[l] }} height={350} />);
     }
     return fields;
   }
@@ -165,9 +170,12 @@ export default function ({ navigation }) {
     const postList = await getFeed("test1");
     var newTest = JSON.parse(postList);
     var postInfo = [];
+    var userInfo = [];
     for (var i = 0; i < newTest.length; i++) {
       var currentPost = await getPost(newTest[i]);
+      var currentUser = await getUser(currentPost.username);
       postInfo[i] = currentPost;
+      userInfo[i] = currentUser;
       for (var l = 0; l < postInfo[i].likes.length; l++) {
         var postLikes = postInfo[i].likes;
         if (postLikes[l] == (await AsyncStorage.getItem("Username"))) {
@@ -177,7 +185,7 @@ export default function ({ navigation }) {
       }
       if (postInfo[i].likes.length == 0) postInfo[i].isLiked = false;
     }
-    renderPosts(postInfo);
+    renderPosts(postInfo, userInfo);
     return;
   };
 

@@ -1,6 +1,6 @@
 import { React, useState, useMemo } from "react";
 import { View } from "react-native";
-import {Layout, Text, Section, SectionContent, useTheme, themeColor} from "react-native-rapi-ui";
+import {Layout, Text, Section, SectionContent, useTheme, themeColor, Button} from "react-native-rapi-ui";
 import { Calendar } from "react-native-calendars";
 import { getAllEventsOnDay } from "../components/apiRefrences";
 
@@ -38,19 +38,27 @@ export default function ({ navigation }) {
             if(events1.length > 0){
             for(var i = 0; i < events1.length; i++){
               fields.push(
-                <Section key={events1[i].eventID} style={{ width: "100%" }}>
-                  <SectionContent>
-                    <Text>{events1[i].name}</Text>
-                    <Text>Description: {events1[i].description}</Text>
+                <Section key={events1[i].eventID} style={{ width: "90%", marginLeft: 20, alignItems: 'center', justifyContent: 'center', display: 'flex' }}>
+                  <SectionContent style={{ alignItems: 'center', justifyContent: 'center' }}>
+                    <Text size="xl" fontWeight="bold" style={{ textAlign: 'center' }}>{events1[i].name}</Text>
+                    <Text size="lg" fontWeight="regular" style={{ textAlign: 'center' }}>{events1[i].description}</Text>
+                    <Button
+                      style={{ marginTop: 10 }}
+                      text="RSVP"
+                      status="info"
+                      onPress={() =>
+                        alert(`Now RSVP'd`)
+                      }
+                    />
                   </SectionContent>
                 </Section>
               )
             }
             setEvents(fields);
           } else {
-            setEvents([<Section key="error" style={{ width: "100%" }}>
-            <SectionContent style={{ flexDirection: "row" }}>
-              <Text>There Are No Events</Text>
+            setEvents([<Section key="error" style={{ width: "90%", marginLeft: 20, alignItems: 'center', justifyContent: 'center', display: 'flex' }}>
+            <SectionContent style={{ flexDirection: "row", alignItems: 'center', justifyContent: 'center' }}>
+              <Text size="lg" fontWeight="regular" style={{ textAlign: 'center' }}>No events scheduled for today.</Text>
             </SectionContent>
             </Section>]);
           }

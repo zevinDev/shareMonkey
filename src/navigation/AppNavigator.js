@@ -31,6 +31,8 @@ import Search from "../screens/Search";
 import Profile from "../screens/Profile";
 import Calendar from "../screens/Calendar";
 import Leaderboard from "../screens/Leaderboard";
+import Settings from "../screens/Settings";
+import Report from "../screens/Report";
 
 import * as WebBrowser from "expo-web-browser";
 import * as Google from "expo-auth-session/providers/google";
@@ -65,7 +67,7 @@ export default () => {
       >
         <MainStack.Screen
           key="home"
-          name="Home"
+          name="Back"
           component={MyDrawer}
           options={{
             headerLeft: (props) => <LogoTitle {...props} />,
@@ -95,6 +97,8 @@ export default () => {
           }}
         />
         <MainStack.Screen key="calendar" name="Calendar" component={Calendar} />
+        <MainStack.Screen key="settings" name="Settings" component={Settings} />
+        <MainStack.Screen key="report" name="Report" component={Report} />
       </MainStack.Navigator>
     );
   };
