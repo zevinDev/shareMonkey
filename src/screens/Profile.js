@@ -41,7 +41,7 @@ export default function ({ navigation }) {
 					<Text fontWeight="bold" size="lg" style={{marginTop: -40, alignSelf:"center"}} >{'Official Account Of The Share Monkey Team'}</Text>
 					</SectionContent>
 				</Section>
-					<Text fontWeight="bold" size="h3"> {"\n \n \n"} You Have No Post's {":("}</Text>
+					<Text fontWeight="bold" size="h3"> {"\n \n \n"} You Have No Posts {":("}</Text>
 			</View>
 			<View
 				style={{

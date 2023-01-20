@@ -58,7 +58,7 @@ export default function ({ navigation }) {
 								<Ionicons name="information-circle-outline" size={20} color={"white"} />
 							}
 							status="info"
-							onPress={() => Linking.openURL("https://github.com/REALziez/Frontend/blob/master/README.md")
+							onPress={() => Linking.openURL("https://docs.google.com/document/d/1islII8aFrUpX8QuNwrhqWxEoy0qZib6THkdX4OoTjHI/edit?usp=sharing")
 							}
 						/>
 						<Button
@@ -68,7 +68,7 @@ export default function ({ navigation }) {
 								<Ionicons name="information-circle-outline" size={20} color={"white"} />
 							}
 							status="info"
-							onPress={() => Linking.openURL("https://github.com/REALziez/Frontend/blob/master/licence.md")
+							onPress={() => Linking.openURL("https://docs.google.com/document/d/1J3qcj_f82YXiCPp9uWlE4vsweOkIZDmQnEzomcGVAt8/edit?usp=sharing")
 							}
 						/>
 					</SectionContent>

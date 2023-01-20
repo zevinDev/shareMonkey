@@ -13,6 +13,7 @@ import {
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Image, View, TouchableOpacity, Animated } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 
 import {
   themeColor,
@@ -144,6 +145,9 @@ export default () => {
       fields.push(
         <DrawerItem
           key={notification[i]}
+          icon={({ size, color }) => (
+            <Ionicons name="calendar-outline" size={20} color={"black"} />
+          )}
           label={notification[i]}
           labelStyle={{ color: isDarkmode ? "#ffffff" : "#000000" }}
         />
@@ -152,7 +156,7 @@ export default () => {
     return fields;
   };
 
-  const notificationList = ["test1", "test2"];
+  const notificationList = ["FBLA Regional Conference", "Football Game"];
   function CustomDrawerContent(props) {
     return (
       <DrawerContentScrollView

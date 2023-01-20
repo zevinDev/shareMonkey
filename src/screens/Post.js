@@ -1,9 +1,10 @@
-import React from 'react';
+import {React, useState} from 'react';
 import { View } from 'react-native';
 import { Layout, Text, TextInput, Section, SectionContent, Button } from 'react-native-rapi-ui';
 
 export default function ({ navigation }) {
-    const [text, setText] = React.useState('');
+    const [title, setTitle] = useState('');
+    const [text, setText] = useState('');
     return (
         <Layout>
             <View
@@ -18,8 +19,8 @@ export default function ({ navigation }) {
                   <Text style={{ marginBottom: 10 }}>Post Title</Text>
                     <TextInput
                         placeholder="Enter here..."
-                        value={text}
-                        onChangeText={(val) => setText(val)}
+                        value={title}
+                        onChangeText={(val) => setTitle(val)}
                     />
                     <Text></Text>
 					<Button
