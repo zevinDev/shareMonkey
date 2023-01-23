@@ -12,6 +12,18 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
+    "hooks": {
+      "postPublish": [
+        {
+          "file": "sentry-expo/upload-sourcemaps",
+          "config": {
+            "organization": "casteel-fbls",
+            "project": "react-native",
+            "authToken": "aee71f5cc64d411aa9760d16c143d1eb696004fcd31d4a7289f84cf9f8074dae"
+          }
+        }
+      ]
+    },
     "updates": {
       "fallbackToCacheTimeout": 0,
       "url": "https://u.expo.dev/98ba2d51-70d0-49f9-82d5-bf2c5607191f"
@@ -37,6 +49,9 @@
     },
     "runtimeVersion": {
       "policy": "sdkVersion"
-    }
+    },
+    "plugins": [
+      "sentry-expo"
+    ]
   }
 }

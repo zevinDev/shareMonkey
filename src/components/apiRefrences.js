@@ -1,16 +1,17 @@
 import axios from "axios";
 
-export const getUser = (username) => {
-  fetch(`https://fbla-backend.herokuapp.com/user/${username}`, {
-    method: "GET",
-  })
-    .then((response) => response.json())
-    .then((response) => {
-      console.log(response);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+
+export const getUser = async (username) => {
+  try {
+    const data = await axios.get(
+      `https://fbla-backend.herokuapp.com/user/${username}`
+    );
+    var newData = JSON.stringify(data.data);
+    newData = JSON.parse(newData);
+    return newData;
+  } catch (error) {
+    console.log(error)
+  }
 };
 
 export const getFeed = async (iUser) => {
