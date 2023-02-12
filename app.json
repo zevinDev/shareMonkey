@@ -34,7 +34,7 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.realziez.shareMonkey",
-      "buildNumber": "1.0.0"
+      "buildNumber": "1.0.3"
     },
     "web": {
       "favicon": "./assets/favicon.png"
