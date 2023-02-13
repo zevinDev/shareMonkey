@@ -24,6 +24,12 @@ import {
 } from "react-native-rapi-ui";
 import TabBarIcon from "../components/utils/TabBarIcon";
 import TabBarText from "../components/utils/TabBarText";
+import {
+  titleText,
+  animatedViewStyle,
+  fadeProperties,
+} from "../components/styles";
+import { getUserFromID } from "../components/apiRefrences";
 import { Icon } from "react-native-elements";
 
 import Home from "../screens/Home";
@@ -72,10 +78,7 @@ export default () => {
           component={MyDrawer}
           options={{
             headerLeft: (props) => <LogoTitle {...props} />,
-            headerTitle: () => [
-           
-              <Text key="emptyText">     </Text>,
-            ],
+            headerTitle: () => [<Text key="emptyText"> </Text>],
             headerRight: () => [
               <Icon
                 key="calendar"
@@ -84,7 +87,7 @@ export default () => {
                 type="ionicon"
                 color={isDarkmode ? "#ffffff" : "#000000"}
               />,
-              <Text key="emptyText">     </Text>,
+              <Text key="emptyText"> </Text>,
               <Icon
                 key="notifications"
                 onPress={() =>
@@ -249,8 +252,9 @@ export default () => {
 
   const LogInPage = () => {
     const { isDarkmode } = useTheme();
-    const { accessToken, setAccessToken } = useState(null);
-    const { user, setUser } = useState(null);
+    const [user, setUser] = useState(null);
+    const [accessToken, setAccessToken] = useState(null);
+    const [hasAccount, setHasAccount] = useState(null);
     const [request, response, promptAsync] = Google.useIdTokenAuthRequest({
       clientId:
         "397269680760-u130fkasmutr9td4gbh68t7duljuu2na.apps.googleusercontent.com",
@@ -298,80 +302,121 @@ export default () => {
       }
     };
 
-    const Test = () => {
-          const [fadeAnimText1] = useState(new Animated.Value(0));
-          const [fadeAnimText2] = useState(new Animated.Value(0));
-          const [fadeAnimImage] = useState(new Animated.Value(0));
-          const [fadeAnimButton] = useState(new Animated.Value(0));
+    const getUserInfo = async () => {
+      if(user){
+        const userInf = await getUserFromID(user.id);
+          if(userInf){
+            setHasAccount(true);
+          } else {
+            setHasAccount(false);
+          }
+      }
+    }
 
-          useEffect(() => {
-            Animated.sequence([
-              Animated.parallel([
-                Animated.timing(fadeAnimText1, {
-                  toValue: 1,
-                  duration: 1000,
-                  useNativeDriver: true,
-                }),
-                Animated.timing(fadeAnimImage, {
-                  toValue: 1,
-                  duration: 1000,
-                  delay: 1,
-                  useNativeDriver: true,
-                }),
-              ]),
-              Animated.timing(fadeAnimText2, {
-                toValue: 1,
-                duration: 800,
-                delay: 500,
-                useNativeDriver: true,
-              }),
-              Animated.parallel([
-                Animated.timing(fadeAnimImage, {
-                  toValue: 1,
-                  duration: 1000,
-                  delay: 500,
-                  useNativeDriver: true,
-                }),
-                Animated.timing(fadeAnimButton, {
-                  toValue: 1,
-                  duration: 1000,
-                  delay: 500,
-                  useNativeDriver: true,
-                }),
-              ]),
-            ]).start();
-          }, []);
-          return (
-            <Animated.View
-              style={{
-                flexDirection: 'column',
-                height: 745,
-                padding: 20,
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-        >
-          {user && <ShowUserInfo />}
-          {user == null && (
-            <>
-              <Animated.Image
-                source={require("../../logo.png")}
-                style={{ width: 150, height: 150, opacity: fadeAnimText1 }}
+    const LoggingIn = () => {
+      getUserInfo();
+      if (hasAccount == null) {
+        return (
+          <View
+            style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
+          >
+            <Text
+              style={{ fontSize: 35, fontWeight: "bold", marginBottom: 20 }}
+            >
+              Logging In
+            </Text>
+          </View>
+        );
+      }
+    };
+
+    const CreateAccount = () => {
+      if (hasAccount == false){
+        return (
+          <View
+            style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
+          >
+            <Text
+              style={{ fontSize: 35, fontWeight: "bold", marginBottom: 20 }}
+            >
+              CreateAccount Page
+            </Text>
+          </View>
+        );
+      }
+    };
+
+    const SignInPage = () => {
+      const [fadeAnimText1] = useState(new Animated.Value(0));
+      const [fadeAnimText2] = useState(new Animated.Value(0));
+      const [fadeAnimImage] = useState(new Animated.Value(0));
+      const [fadeAnimButton] = useState(new Animated.Value(0));
+
+      useEffect(() => {
+        Animated.sequence([
+          Animated.parallel([
+            Animated.timing(fadeAnimText1, fadeProperties),
+            Animated.timing(fadeAnimImage, fadeProperties),
+          ]),
+          Animated.timing(fadeAnimText2, fadeProperties),
+          Animated.parallel([
+            Animated.timing(fadeAnimImage, fadeProperties),
+            Animated.timing(fadeAnimButton, fadeProperties),
+          ]),
+        ]).start();
+      }, []);
+      return (
+        <>
+          <Animated.Image
+            source={require("../../logo.png")}
+            style={{ width: 150, height: 150, opacity: fadeAnimText1 }}
+          />
+          <Animated.Text
+            style={{ ...titleText, ...{ opacity: fadeAnimText1 } }}
+          >
+            ShareMonkey
+          </Animated.Text>
+          <Animated.Text
+            style={{ ...titleText, ...{ opacity: fadeAnimText2 } }}
+          >
+            {" "}
+            Please Log In
+          </Animated.Text>
+          <Animated.View style={{ opacity: fadeAnimButton }}>
+            <TouchableOpacity
+              disabled={!request}
+              onPress={() => {
+                promptAsync();
+              }}
+            >
+              <Image
+                source={require("../../btn.png")}
+                style={{ width: 300, height: 40 }}
               />
-              <Animated.Text style={{ opacity: fadeAnimText1, fontSize: 35, alignItems: 'center', justifyContent: 'center', fontWeight: "bold" }}>Welcome to</Animated.Text>
-              <Animated.Text style={{ opacity: fadeAnimText1, fontSize: 35, alignItems: 'center', justifyContent: 'center', fontWeight: "bold" }}>ShareMonkey</Animated.Text>
-              <Animated.Text style={{ opacity: fadeAnimText2, fontSize: 25, fontWeight: "bold", marginBottom: 20, color: "gray" }}> Please Log In</Animated.Text>
-              <Animated.View style={{ opacity: fadeAnimButton }}>
-                <TouchableOpacity disabled={!request} onPress={() => { promptAsync(); }}>
-                  <Image source={require("../../btn.png")} style={{ width: 300, height: 40 }} />
-                </TouchableOpacity>
-                <Button text="Skip Log In" onPress={() => { setloggedIn(true); }} style={{ marginTop: 10 }} />
-              </Animated.View>
-            </>
-          )}
+            </TouchableOpacity>
+            <Button
+              text="Skip Log In"
+              onPress={() => {
+                setloggedIn(true);
+              }}
+              style={{ marginTop: 10 }}
+            />
+          </Animated.View>
+        </>
+      );
+    };
+
+    const SignInManager = () => {
+      return (
+        <Animated.View style={animatedViewStyle}>
+          {!accessToken && <SignInPage />}
+          {accessToken && <LoggingIn />}
+          {!hasAccount && <CreateAccount />}
+          {hasAccount && <ShowUserInfo />}
         </Animated.View>
       );
     };
+
     return (
       <MainStack.Navigator
         screenOptions={{
@@ -381,7 +426,10 @@ export default () => {
           },
         }}
       >
-        <MainStack.Screen name="Log In to ShareMonkey" component={Test} />
+        <MainStack.Screen
+          name="Log In to ShareMonkey"
+          component={SignInManager}
+        />
       </MainStack.Navigator>
     );
   };
