@@ -2,6 +2,7 @@
   "expo": {
     "name": "shareMonkey",
     "slug": "frontend",
+    "owner": "casteel-fbla",
     "currentFullName": "@realziez/shareMonkey",
     "originalFullName": "@realziez/shareMonkey",
     "version": "1.0.3",
@@ -11,18 +12,6 @@
       "image": "./assets/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
-    },
-    "hooks": {
-      "postPublish": [
-        {
-          "file": "sentry-expo/upload-sourcemaps",
-          "config": {
-            "organization": "casteel-fbls",
-            "project": "react-native",
-            "authToken": "aee71f5cc64d411aa9760d16c143d1eb696004fcd31d4a7289f84cf9f8074dae"
-          }
-        }
-      ]
     },
     "updates": {
       "fallbackToCacheTimeout": 0,
@@ -49,9 +38,6 @@
     },
     "runtimeVersion": {
       "policy": "sdkVersion"
-    },
-    "plugins": [
-      "sentry-expo"
-    ]
+    }
   }
 }
