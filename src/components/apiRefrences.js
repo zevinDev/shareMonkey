@@ -17,7 +17,7 @@ export const getUser = async (username) => {
 export const getUserFromID = async (id) => {
   try {
     const data = await axios.get(
-      `https://fbla-backend.casteel-fbla.repl.co/user/id/${id}`
+      `https://fbla-backend.herokuapp.com/user/id/${id}`
     );
     var newData = JSON.stringify(data.data);
     newData = JSON.parse(newData);

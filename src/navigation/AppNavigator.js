@@ -12,7 +12,7 @@ import {
 } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Image, View, TouchableOpacity, Animated } from "react-native";
+import { ActivityIndicator, Image, View, TouchableOpacity, Animated } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
 import {
@@ -21,6 +21,7 @@ import {
   Text,
   Layout,
   Button,
+  TextInput
 } from "react-native-rapi-ui";
 import TabBarIcon from "../components/utils/TabBarIcon";
 import TabBarText from "../components/utils/TabBarText";
@@ -320,10 +321,11 @@ export default () => {
           <View
             style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
           >
+            <ActivityIndicator size="large" />
             <Text
               style={{ fontSize: 35, fontWeight: "bold", marginBottom: 20 }}
             >
-              Logging In
+              Logging You In
             </Text>
           </View>
         );
@@ -332,6 +334,12 @@ export default () => {
 
     const CreateAccount = () => {
       if (hasAccount == false){
+        const [name, setName] = useState(user.name);
+        const [username, setUsername] = useState(null);
+        const [role, setRole] = useState("student");
+        const [school, setSchool] = useState(null);
+        const [year, setYear] = useState(null);
+
         return (
           <View
             style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
@@ -341,6 +349,10 @@ export default () => {
             >
               CreateAccount Page
             </Text>
+            <TextInput
+              value={name}
+              onChangeText={(val) => setName(val)}
+            />
           </View>
         );
       }
@@ -369,7 +381,7 @@ export default () => {
         <>
           <Animated.Image
             source={require("../../logo.png")}
-            style={{ width: 150, height: 150, opacity: fadeAnimText1 }}
+            style={{ width: 150, height: 150, opacity: fadeAnimImage }}
           />
           <Animated.Text
             style={{ ...titleText, ...{ opacity: fadeAnimText1 } }}
