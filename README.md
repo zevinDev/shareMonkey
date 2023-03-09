@@ -55,7 +55,32 @@ the app or cantact one of our developers!
 
 <table>
   <tbody>
-    <tr>
-      <td align="center"><a href="https://github.com/REALziez"><img src="https://avatars.githubusercontent.com/u/86094612?v=3?s=100" width="100px;" alt="Zevin Burzynski"/><br /><sub><b>Zevin Burzynski</b></sub></a><br /><a href="https://discord.com/users/337745486054424577" title="Discord"><img src="https://assets-global.website-files.com/6257adef93867e50d84d30e2/636e0a6a49cf127bf92de1e2_icon_clyde_blurple_RGB.png" width="16px;" alt="Discord"/></a> <a href="mailto:zevin@duck.com" title="Email">📧</a></td>
-  </tbody>
+  <tr>
+    <td align="center">
+      <a href="https://github.com/REALziez">
+        <img src="https://avatars.githubusercontent.com/u/86094612?v=3?s=100" width="100px;" alt="Zevin Burzynski"/>
+        <br />
+        <sub><b>Zevin Burzynski</b></sub>
+      </a>
+      <br />
+      <a href="https://discord.com/users/337745486054424577" title="Discord">
+        <img src="https://assets-global.website-files.com/6257adef93867e50d84d30e2/636e0a6a49cf127bf92de1e2_icon_clyde_blurple_RGB.png" width="16px;" alt="Discord"/>
+      </a> 
+      <a href="mailto:zevin@duck.com" title="Email">📧</a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/arcbarkzap">
+        <img src="https://avatars.githubusercontent.com/u/71309451?v=3?s=100" width="100px;" alt="Ethan Morris"/>
+        <br />
+        <sub><b>Ethan Morris</b></sub>
+      </a>
+      <br />
+      <a href="https://discord.com/users/503276826617970688" title="Discord">
+        <img src="https://assets-global.website-files.com/6257adef93867e50d84d30e2/636e0a6a49cf127bf92de1e2_icon_clyde_blurple_RGB.png" width="16px;" alt="Discord"/>
+      </a> 
+      <a href="mailto:arc@duck.com" title="Email">📧</a>
+    </td>
+  </tr>
+</tbody>
+
 </table>
