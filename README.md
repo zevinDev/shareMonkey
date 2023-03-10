@@ -3,6 +3,7 @@
 <h3 align="center">
 
 [![update](https://github.com/REALziez/Frontend/actions/workflows/update.yml/badge.svg?branch=master)](https://github.com/REALziez/Frontend/actions/workflows/update.yml)
+[![DeepScan grade](https://deepscan.io/api/teams/20671/projects/24070/branches/738472/badge/grade.svg?token=a1fa0980263b30233c0ddf1e9c3ed778290db2ee)](https://deepscan.io/dashboard#view=project&tid=20671&pid=24070&bid=738472)
 
 # What Is ShareMonkey?
 ShareMonkey is a mobile application designed for use in school districts and
@@ -66,7 +67,7 @@ the app or cantact one of our developers!
       <a href="https://discord.com/users/337745486054424577" title="Discord">
         <img src="https://assets-global.website-files.com/6257adef93867e50d84d30e2/636e0a6a49cf127bf92de1e2_icon_clyde_blurple_RGB.png" width="16px;" alt="Discord"/>
       </a> 
-      <a href="mailto:zevin@duck.com" title="Email">📧</a>
+      <a href="mailto:zevin@duck.com" title="Email">✉️</a>
     </td>
     <td align="center">
       <a href="https://github.com/arcbarkzap">
@@ -78,7 +79,7 @@ the app or cantact one of our developers!
       <a href="https://discord.com/users/503276826617970688" title="Discord">
         <img src="https://assets-global.website-files.com/6257adef93867e50d84d30e2/636e0a6a49cf127bf92de1e2_icon_clyde_blurple_RGB.png" width="16px;" alt="Discord"/>
       </a> 
-      <a href="mailto:arc@duck.com" title="Email">📧</a>
+      <a href="mailto:arc@duck.com" title="Email">✉️</a>
     </td>
   </tr>
 </tbody>
