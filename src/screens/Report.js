@@ -1,12 +1,11 @@
 import { React, useState } from "react";
-import { View, Image, Linking } from "react-native";
+import { View } from "react-native";
 import {
   Layout,
   Text,
   Button,
   Section,
   SectionContent,
-  Avatar,
   RadioButton,
   TextInput,
 } from "react-native-rapi-ui";

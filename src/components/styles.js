@@ -1,7 +1,3 @@
-import React from "react";
-import { themeColor, useTheme } from "react-native-rapi-ui";
-import { Ionicons } from "@expo/vector-icons";
-
 export const titleText = {
     fontSize: 35, 
     alignItems: 'center', 

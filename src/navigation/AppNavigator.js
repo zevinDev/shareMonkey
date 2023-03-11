@@ -62,7 +62,7 @@ export default () => {
   const [loggedIn, setloggedIn] = useState(false);
 
   const Main = () => {
-    const { isDarkmode, setTheme } = useTheme();
+    const { isDarkmode } = useTheme();
     const navigation = useNavigation();
 
     return (

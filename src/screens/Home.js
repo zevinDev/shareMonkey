@@ -3,7 +3,6 @@ import { View, ScrollView, TouchableHighlight, Share } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import {
   Layout,
-  Button,
   Text,
   Section,
   SectionContent,
