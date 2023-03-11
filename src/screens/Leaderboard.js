@@ -25,25 +25,47 @@ export default function ({ navigation }) {
     if (leaderValue) {
       for (var i = 0; i < leaderValue.usernames.length; i++) {
         field.push(
-          <Section key={leaderValue.usernames[i]} style={{ width: "90%", marginTop: 10, alignSelf: "center", justifyContent: "center", display: 'flex' }}>
-  <SectionContent style={{ flexDirection: "row", alignSelf: 'flex-end' }}>
-    <Text size="xl" fontWeight="bold" key={leaderValue.usernames[i]} style={{ marginRight: 15 }}>
-      {leaderValue.usernames[i]}:
-    </Text>
-    <Text size="xl" fontWeight="bold" key={leaderValue.points[i]} style={{ flex: 1, alignItems: 'flex-end', justifyContent: 'flex-end', paddingRight: 20 }}>
-      {leaderValue.points[i]}
-    </Text>
-  </SectionContent>
-</Section>
-
-
-
-
-
-
+          <Section
+            key={leaderValue.usernames[i]}
+            style={{
+              width: "90%",
+              marginTop: 10,
+              alignSelf: "center",
+              justifyContent: "center",
+              display: "flex",
+            }}
+          >
+            <SectionContent
+              style={{ flexDirection: "row", alignSelf: "flex-end" }}
+            >
+              <Text
+                size="xl"
+                fontWeight="bold"
+                key={leaderValue.usernames[i]}
+                style={{ marginRight: 15 }}
+              >
+                {leaderValue.usernames[i]}:
+              </Text>
+              <Text
+                size="xl"
+                fontWeight="bold"
+                key={leaderValue.points[i]}
+                style={{
+                  flex: 1,
+                  alignItems: "flex-end",
+                  justifyContent: "flex-end",
+                  paddingRight: 20,
+                }}
+              >
+                {leaderValue.points[i]}
+              </Text>
+            </SectionContent>
+          </Section>
         );
       }
       return field;
+    } else {
+      return <View></View>;
     }
   };
 
@@ -57,7 +79,7 @@ export default function ({ navigation }) {
       <View
         style={{
           alignItems: "center",
-          justifyContent: "top",
+          justifyContent: "flex-start",
           marginTop: -40,
         }}
       >

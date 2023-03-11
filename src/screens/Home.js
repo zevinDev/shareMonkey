@@ -1,5 +1,5 @@
 import { React, useState, useEffect } from "react";
-import { View, Linking, ScrollView, TouchableHighlight, Share } from "react-native";
+import { View, ScrollView, TouchableHighlight, Share } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import {
   Layout,
@@ -20,7 +20,6 @@ import {
 } from "../components/apiRefrences";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-
 export default function ({ navigation }) {
   const [posts, setPosts] = useState([]);
   const { isDarkmode, setTheme } = useTheme();
@@ -34,13 +33,12 @@ export default function ({ navigation }) {
     AsyncStorage.setItem("Token", token);
   };
   const renderPosts = (posts, userInfo) => {
-
     var fields = [];
     const starter = "   (@";
     const finisher = ")";
     for (let i = 0; i < posts.length; i++) {
       fields.push(
-        <Section key={posts[i].postID} style={{ width: "100%", marginTop:20}}>
+        <Section key={posts[i].postID} style={{ width: "100%", marginTop: 20 }}>
           <SectionContent style={{ flexDirection: "row" }}>
             <Avatar
               source={{
@@ -56,10 +54,12 @@ export default function ({ navigation }) {
           </SectionContent>
 
           {displayPictures(posts[i].postPicture)}
-          <SectionContent style={{marginTop:-10}}>
-            <Text fontWeight="bold">{posts[i].username}: {posts[i].description}</Text>
+          <SectionContent style={{ marginTop: -10 }}>
+            <Text fontWeight="bold">
+              {posts[i].username}: {posts[i].description}
+            </Text>
           </SectionContent>
-          <SectionContent style={{ flexDirection: "row", marginTop:-30 }}>
+          <SectionContent style={{ flexDirection: "row", marginTop: -30 }}>
             <TouchableHighlight
               onPress={async () => {
                 if (posts[i].isLiked == false) {
@@ -91,7 +91,7 @@ export default function ({ navigation }) {
                 }
               />
             </TouchableHighlight>
-            <Text>    </Text>
+            <Text> </Text>
             <TouchableHighlight
               onPress={async () => {
                 console.log("test");
@@ -104,14 +104,13 @@ export default function ({ navigation }) {
                 color={"#119e37"}
               />
             </TouchableHighlight>
-            <Text>    </Text>
-            
+            <Text> </Text>
+
             <TouchableHighlight
               onPress={async () => {
-
                 Share.share(
                   {
-                    title: 'test title',
+                    title: "test title",
                     url: `https://fbla-backend.herokuapp.com/post/${posts[i].postID}`,
                   },
                   {
@@ -139,18 +138,16 @@ export default function ({ navigation }) {
                     ],
                   }
                 );
-                }}
+              }}
             >
               <Ionicons
                 name={"share-outline"}
-                style={{ marginBottom: -7}}
+                style={{ marginBottom: -7 }}
                 size={24}
                 color={"#118cd9"}
               />
             </TouchableHighlight>
-            
           </SectionContent>
-
         </Section>
       );
     }
@@ -161,7 +158,9 @@ export default function ({ navigation }) {
   function displayPictures(picList) {
     var fields = [];
     for (let l = 0; l < picList.length; l++) {
-      fields.push(<SectionImage key={l} source={{ uri: picList[l] }} height={350} />);
+      fields.push(
+        <SectionImage key={l} source={{ uri: picList[l] }} height={350} />
+      );
     }
     return fields;
   }
@@ -216,7 +215,6 @@ export default function ({ navigation }) {
           {useEffect(() => {
             handle();
           }, [])}
-
         </View>
       </Layout>
     </ScrollView>

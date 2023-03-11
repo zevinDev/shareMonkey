@@ -1,6 +1,5 @@
 import axios from "axios";
 
-
 export const getUser = async (username) => {
   try {
     const data = await axios.get(
@@ -37,6 +36,7 @@ export const getFeed = async (iUser) => {
     return newData;
   } catch (error) {
     alert("Something went wrong.");
+    console.error(error);
   }
 };
 

@@ -12,16 +12,21 @@ import {
 } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { ActivityIndicator, Image, View, TouchableOpacity, Animated } from "react-native";
+import {
+  ActivityIndicator,
+  Image,
+  View,
+  TouchableOpacity,
+  Animated,
+} from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
 import {
   themeColor,
   useTheme,
   Text,
-  Layout,
   Button,
-  TextInput
+  TextInput,
 } from "react-native-rapi-ui";
 import TabBarIcon from "../components/utils/TabBarIcon";
 import TabBarText from "../components/utils/TabBarText";
@@ -300,19 +305,21 @@ export default () => {
             </Text>
           </View>
         );
+      } else {
+        return <View></View>;
       }
     };
 
     const getUserInfo = async () => {
-      if(user){
+      if (user) {
         const userInf = await getUserFromID(user.id);
-          if(userInf){
-            setHasAccount(true);
-          } else {
-            setHasAccount(false);
-          }
+        if (userInf) {
+          setHasAccount(true);
+        } else {
+          setHasAccount(false);
+        }
       }
-    }
+    };
 
     const LoggingIn = () => {
       getUserInfo();
@@ -329,11 +336,13 @@ export default () => {
             </Text>
           </View>
         );
+      } else {
+        return <View></View>;
       }
     };
 
     const CreateAccount = () => {
-      if (hasAccount == false){
+      if (hasAccount == false) {
         const [name, setName] = useState(user.name);
         const [username, setUsername] = useState(null);
         const [role, setRole] = useState("student");
@@ -349,12 +358,11 @@ export default () => {
             >
               CreateAccount Page
             </Text>
-            <TextInput
-              value={name}
-              onChangeText={(val) => setName(val)}
-            />
+            <TextInput value={name} onChangeText={(val) => setName(val)} />
           </View>
         );
+      } else {
+        return <View></View>;
       }
     };
 
