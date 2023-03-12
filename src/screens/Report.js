@@ -15,6 +15,7 @@ export default function ({ navigation }) {
   const [pic, setpic] = useState();
   const [com, setcom] = useState();
   const [text, setText] = useState();
+  const [user, setUser] = useState();
   return (
     <Layout>
       <Section>
@@ -39,6 +40,14 @@ export default function ({ navigation }) {
             <RadioButton value={com} onValueChange={(val) => setcom(val)} />
             <Text size="md" style={{ marginLeft: 10, color: "gray" }}>
               Report Comment
+            </Text>
+          </View>
+        </SectionContent>
+        <SectionContent>
+          <View style={{ flexDirection: "row", alignItems: "center" }}>
+            <RadioButton value={user} onValueChange={(val) => setUser(val)} />
+            <Text size="md" style={{ marginLeft: 10, color: "gray" }}>
+              Report User
             </Text>
           </View>
         </SectionContent>

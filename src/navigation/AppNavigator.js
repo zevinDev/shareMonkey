@@ -87,13 +87,23 @@ export default () => {
             headerTitle: () => [<Text key="emptyText"> </Text>],
             headerRight: () => [
               <Icon
+                key="settings"
+                onPress={() => navigation.navigate("Settings")}
+                name="settings-outline"
+                type="ionicon"
+                color={isDarkmode ? "#ffffff" : "#000000"}
+              />,
+              <Text key="emptyText"> </Text>,
+              <Text key="emptyText2"> </Text>,
+              <Icon
                 key="calendar"
                 onPress={() => navigation.navigate("Calendar")}
                 name="calendar-outline"
                 type="ionicon"
                 color={isDarkmode ? "#ffffff" : "#000000"}
               />,
-              <Text key="emptyText"> </Text>,
+              <Text key="emptyText3"> </Text>,
+              <Text key="emptyText4"> </Text>,
               <Icon
                 key="notifications"
                 onPress={() =>
