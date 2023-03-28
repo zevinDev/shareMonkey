@@ -1,4 +1,5 @@
 import { React, useEffect, useState } from "react";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   createDrawerNavigator,
   DrawerContentScrollView,
@@ -27,6 +28,7 @@ import {
   Text,
   Button,
   TextInput,
+  Picker
 } from "react-native-rapi-ui";
 import TabBarIcon from "../components/utils/TabBarIcon";
 import TabBarText from "../components/utils/TabBarText";
@@ -35,7 +37,7 @@ import {
   animatedViewStyle,
   fadeProperties,
 } from "../components/styles";
-import { getUserFromID } from "../components/apiRefrences";
+import { getUserFromID, createUser } from "../components/apiRefrences";
 import { Icon } from "react-native-elements";
 
 import Home from "../screens/Home";
@@ -271,6 +273,7 @@ export default () => {
     const [user, setUser] = useState(null);
     const [accessToken, setAccessToken] = useState(null);
     const [hasAccount, setHasAccount] = useState(null);
+    const [creatingAccount, setCreatingAccount] = useState(null);
     const [request, response, promptAsync] = Google.useIdTokenAuthRequest({
       clientId:
         "397269680760-u130fkasmutr9td4gbh68t7duljuu2na.apps.googleusercontent.com",
@@ -306,13 +309,9 @@ export default () => {
             >
               Welcome
             </Text>
-            <Image
-              source={{ uri: user.picture }}
-              style={{ width: 100, height: 100, borderRadius: 50 }}
-            />
             <Text style={{ fontSize: 20, fontWeight: "bold" }}>
-              {user.name}
-            </Text>
+              {user.username}
+            </Text>1
           </View>
         );
       } else {
@@ -324,12 +323,22 @@ export default () => {
       if (user) {
         const userInf = await getUserFromID(user.id);
         if (userInf) {
+          setUser(userInf);
+          saveUserInfo("userData", user);
           setHasAccount(true);
         } else {
           setHasAccount(false);
         }
       }
     };
+
+    const saveUserInfo = async (key, value) => {
+      try {
+        await AsyncStorage.setItem(key, value)
+      } catch (e) {
+        // saving error
+      }
+    }
 
     const LoggingIn = () => {
       getUserInfo();
@@ -351,24 +360,96 @@ export default () => {
       }
     };
 
-    const CreateAccount = () => {
-      if (hasAccount == false) {
-        const [name, setName] = useState(user.name);
-        const [username, setUsername] = useState(null);
-        const [role, setRole] = useState("student");
-        const [school, setSchool] = useState(null);
-        const [year, setYear] = useState(null);
-
+    const CreatingNewAccount = () => {
+      if (creatingAccount == true) {
         return (
           <View
             style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
           >
+            <ActivityIndicator size="large" />
             <Text
               style={{ fontSize: 35, fontWeight: "bold", marginBottom: 20 }}
             >
-              CreateAccount Page
+              Creating Your Account
+            </Text>
+          </View>
+        );
+      } else {
+        return <View></View>;
+      }
+    };
+
+    const CreateAccount = () => {
+      if (hasAccount == false && creatingAccount == null) {
+        const [name, setName] = useState("Full Name");
+        const [username, setUsername] = useState("Username");
+        const [school, setSchool] = useState("School");
+        const [gradePickerValue, setGradePickerValue] = useState(null);
+        const gradeItems = [
+          { label: "9th Grade", value: "9" },
+          { label: "10th Grade", value: "10" },
+          { label: "11th Grade", value: "11" },
+          { label: "12th Grade", value: "12" }
+        ];
+        const [rolePickerValue, setRolePickerValue] = useState(null);
+        const roleItems = [
+          { label: "Student", value: "student" },
+          { label: "Parent", value: "parent" },
+          { label: "Teacher", value: "teacher" }
+        ];
+
+        return (
+          <View
+            style={{ flex: 1, alignItems: "center", justifyContent: "flex-start" }}
+          >
+            <Text style={{ fontSize: 35, fontWeight: "bold", marginTop: 20, marginBottom: 20 }}>
+              Create a New Account
             </Text>
             <TextInput value={name} onChangeText={(val) => setName(val)} />
+            <TextInput value={username} onChangeText={(val) => setUsername(val)} />
+            <TextInput value={school} onChangeText={(val) => setSchool(val)} />
+            <Picker borderWidth={1} items={roleItems} value={rolePickerValue} placeholder="Role" onValueChange={(val) => {
+                setRolePickerValue(val);
+              }}
+            />
+            {rolePickerValue == "student" &&
+              <Picker borderWidth={1} items={gradeItems} value={gradePickerValue} placeholder="Grade" onValueChange={(val) => {
+                setGradePickerValue(val);
+                }}
+              />
+            }
+            <Button
+              text="Submit"
+              status="primary"
+              onPress={async () => {
+                //console.log(user.id + name + username + rolePickerValue + gradePickerValue)
+                if(name != "Full Name" && username != "Username" && school != "School" && rolePickerValue != null){
+                  if(rolePickerValue == "student" && gradePickerValue != null){
+                    setUser(null);
+                    setCreatingAccount(true);
+                    var response = await createUser(user.id, name, username, rolePickerValue, school, Number(gradePickerValue), "null")
+                    setUser(response);
+                    saveUserInfo("userData", user);
+                    setHasAccount(true);
+                    setCreatingAccount(false);
+                  } else if(rolePickerValue != "student") {
+                    setUser(null);
+                    setCreatingAccount(true);
+                    var response = await createUser(user.id, name, username, rolePickerValue, school, 0, "null")
+                    setUser(response);
+                    saveUserInfo("userData", user);
+                    setHasAccount(true);
+                    setCreatingAccount(false);
+                  } else {
+                    console.log("fill in all feilds");
+                    //display error
+                  }
+                } else {
+                  console.log("fill in all feilds");
+                  //display error
+                }
+              }}
+            />
           </View>
         );
       } else {
@@ -442,6 +523,7 @@ export default () => {
           {!accessToken && <SignInPage />}
           {accessToken && <LoggingIn />}
           {!hasAccount && <CreateAccount />}
+          {creatingAccount && <CreatingNewAccount />}
           {hasAccount && <ShowUserInfo />}
         </Animated.View>
       );

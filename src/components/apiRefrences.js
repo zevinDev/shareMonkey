@@ -122,3 +122,26 @@ export const getAllEventsOnDay = async (date) => {
     alert("Something went wrong.");
   }
 };
+
+export const createUser = async (id, name, username, role, school, year, profilePicture) => {
+  try {
+    const data = await axios.post(
+      `https://fbla-backend.casteel-fbla.repl.co/user`,
+      {
+        id: id,
+        name: name,
+        username: username,
+        role: role,
+        school: school,
+        year: year,
+        profilePicture: profilePicture
+      }
+    );
+    var newData = JSON.stringify(data.data);
+    newData = JSON.parse(newData);
+    return newData;
+  } catch (error) {
+    console.log(error);
+    alert("Something went wrong.");
+  }
+};
