@@ -166,6 +166,7 @@ export default function ({ navigation }) {
 
   const handleFeed = async () => {
     const postList = await getFeed("test1");
+    if(postList){
     var newTest = JSON.parse(postList);
     var postInfo = [];
     var userInfo = [];
@@ -185,6 +186,7 @@ export default function ({ navigation }) {
     }
     renderPosts(postInfo, userInfo);
     return;
+  }
   };
 
   const runOnce = () => {

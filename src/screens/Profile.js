@@ -7,22 +7,36 @@ import {
   Avatar,
   Button,
 } from "react-native-rapi-ui";
+import {useState} from "react";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import { Ionicons } from "@expo/vector-icons";
-import { TouchableHighlight } from "react-native-gesture-handler";
-
-const POSTS = [
-  { id: 1, image: require("../../examplepost.jpg") },
-  { id: 2, image: require("../../examplepost.jpg") },
-  { id: 3, image: require("../../examplepost.jpg") },
-  { id: 4, image: require("../../examplepost.jpg") },
-  { id: 5, image: require("../../examplepost.jpg") },
-  { id: 6, image: require("../../examplepost.jpg") },
-  { id: 7, image: require("../../examplepost.jpg") },
-  { id: 8, image: require("../../examplepost.jpg") },
-];
 
 export default function ({ navigation }) {
+  const [userData, setUserData] = useState(false);
+  var user;
+  const getUserData = async () => {
+    try {
+      const value = JSON.parse(await AsyncStorage.getItem('userData'));
+      if(value != user){
+        user = value;
+        setUserData(value);
+      }
+    } catch(e) {
+      // error reading value
+    }
+  }
+  getUserData();
+
+  const POSTS = [
+    { id: 1, image: require("../../examplepost.jpg") },
+    { id: 2, image: require("../../examplepost.jpg") },
+    { id: 3, image: require("../../examplepost.jpg") },
+    { id: 4, image: require("../../examplepost.jpg") },
+    { id: 5, image: require("../../examplepost.jpg") },
+    { id: 6, image: require("../../examplepost.jpg") },
+    { id: 7, image: require("../../examplepost.jpg") },
+    { id: 8, image: require("../../examplepost.jpg") },
+  ];
 
   const renderItem = ({ item }) => (
     <Image
@@ -40,7 +54,7 @@ export default function ({ navigation }) {
       marginBottom: 10, 
     },
   });
-
+if(userData){
   return (
     <ScrollView>
       <Layout>
@@ -55,18 +69,18 @@ export default function ({ navigation }) {
             <SectionContent style={{ flexDirection: "row" }}>
               <Avatar
                 style={{ alignSelf: "flex-start" }}
-                source={require("../../logo.png")}
+                source={{ uri: userData.profilePicture }}
                 size="xl"
                 shape="round"
               />
               <Text fontWeight="bold" size="h3" style={{ marginLeft: 10 }}>
-                {"Orange Monkey"}
+                {userData.name}
                 {"\n"}
                 <Text style={{ color: "gray", fontSize: 20 }}>
-                  {"@theorangemonkey"}
+                @{userData.username}
                   {"\n"}
                   <Text style={{ color: "gray", fontSize: 17 }}>
-                    {"XX Followers"}
+                    {userData.followers.length} Followers
                   </Text>
                 </Text>
               </Text>
@@ -113,6 +127,7 @@ export default function ({ navigation }) {
               <View style={{ flex: 2 }}>
                 <Section>
                   <SectionContent>
+                    {/* whenClicked is a property not an event, per se. 
                   <FlatList
                     data={POSTS}
                     renderItem={renderItem}
@@ -121,6 +136,8 @@ export default function ({ navigation }) {
                     style={{ paddingLeft: 10 }} 
                     contentContainerStyle={{ paddingBottom: 20 }} 
                   />
+                  */
+          }
                   </SectionContent>
                 </Section>
               </View>
@@ -131,4 +148,7 @@ export default function ({ navigation }) {
       </Layout>
     </ScrollView>
   );
+} else {
+  <View></View>
+}
 }

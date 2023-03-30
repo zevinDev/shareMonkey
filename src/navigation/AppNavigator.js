@@ -269,6 +269,19 @@ export default () => {
   };
 
   const LogInPage = () => {
+    const checkIfLoggedIn = async () => {
+      try {
+        const value = await AsyncStorage.getItem('userData');
+        if(value){
+          setloggedIn(true);
+        }
+      } catch(e) {
+        // error reading value
+      }
+    }
+
+    checkIfLoggedIn();
+    
     const { isDarkmode } = useTheme();
     const [user, setUser] = useState(null);
     const [accessToken, setAccessToken] = useState(null);
@@ -298,34 +311,20 @@ export default () => {
       setUser(useInfo);
     }
 
-    const ShowUserInfo = () => {
+    const changeScreen = async () => {
       if (user) {
-        return (
-          <View
-            style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
-          >
-            <Text
-              style={{ fontSize: 35, fontWeight: "bold", marginBottom: 20 }}
-            >
-              Welcome
-            </Text>
-            <Text style={{ fontSize: 20, fontWeight: "bold" }}>
-              {user.username}
-            </Text>1
-          </View>
-        );
-      } else {
-        return <View></View>;
-      }
+        await saveUserInfo("userData", JSON.stringify(user));
+        setloggedIn(true);
     };
+  }
 
     const getUserInfo = async () => {
       if (user) {
         const userInf = await getUserFromID(user.id);
         if (userInf) {
           setUser(userInf);
-          saveUserInfo("userData", user);
           setHasAccount(true);
+          changeScreen();
         } else {
           setHasAccount(false);
         }
@@ -335,6 +334,7 @@ export default () => {
     const saveUserInfo = async (key, value) => {
       try {
         await AsyncStorage.setItem(key, value)
+        return;
       } catch (e) {
         // saving error
       }
@@ -427,19 +427,21 @@ export default () => {
                   if(rolePickerValue == "student" && gradePickerValue != null){
                     setUser(null);
                     setCreatingAccount(true);
-                    var response = await createUser(user.id, name, username, rolePickerValue, school, Number(gradePickerValue), "null")
+                    var response = await createUser(user.id, name, username, rolePickerValue, school, Number(gradePickerValue), user.picture)
                     setUser(response);
-                    saveUserInfo("userData", user);
+                    saveUserInfo("userData", JSON.stringify(user));
                     setHasAccount(true);
                     setCreatingAccount(false);
+                    changeScreen();
                   } else if(rolePickerValue != "student") {
                     setUser(null);
                     setCreatingAccount(true);
-                    var response = await createUser(user.id, name, username, rolePickerValue, school, 0, "null")
+                    var response = await createUser(user.id, name, username, rolePickerValue, school, 0, user.picture)
                     setUser(response);
-                    saveUserInfo("userData", user);
+                    saveUserInfo("userData", JSON.stringify(user));
                     setHasAccount(true);
                     setCreatingAccount(false);
+                    changeScreen();
                   } else {
                     console.log("fill in all feilds");
                     //display error
@@ -524,7 +526,6 @@ export default () => {
           {accessToken && <LoggingIn />}
           {!hasAccount && <CreateAccount />}
           {creatingAccount && <CreatingNewAccount />}
-          {hasAccount && <ShowUserInfo />}
         </Animated.View>
       );
     };
