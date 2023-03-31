@@ -1,7 +1,8 @@
 import React from "react";
-import { View, Linking } from "react-native";
+import { View, Linking, DevSettings } from "react-native";
 import { Layout, Button, Section, SectionContent } from "react-native-rapi-ui";
-
+import RNRestart from 'react-native-restart';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Ionicons } from "@expo/vector-icons";
 
 export default function ({ navigation }) {
@@ -103,13 +104,17 @@ export default function ({ navigation }) {
               text="Log Out"
               leftContent={
                 <Ionicons
-                  name="log-out-outline"
+                  name="warning-outline"
                   size={20}
                   color={"white"}
                 />
               }
               status="danger"
-              onPress={() => alert("Disabled for the presentation.")}
+              onPress={() => {
+                AsyncStorage.removeItem("userData");
+                DevSettings.reload()
+              }
+              }
             />
           </SectionContent>
         </Section>
