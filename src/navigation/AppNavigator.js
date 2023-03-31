@@ -177,7 +177,7 @@ export default () => {
     return fields;
   };
 
-  const notificationList = ["FBLA Regional Conference", "Football Game"];
+  const notificationList = ["FBLA State Leadership Conference", "Prom: Under the Tuscan Sky"];
   function CustomDrawerContent(props) {
     return (
       <DrawerContentScrollView

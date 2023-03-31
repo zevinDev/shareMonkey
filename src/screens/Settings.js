@@ -98,6 +98,19 @@ export default function ({ navigation }) {
                 )
               }
             />
+            <Button
+              style={{ marginTop: 10 }}
+              text="Log Out"
+              leftContent={
+                <Ionicons
+                  name="log-out-outline"
+                  size={20}
+                  color={"white"}
+                />
+              }
+              status="danger"
+              onPress={() => alert("Disabled for the presentation.")}
+            />
           </SectionContent>
         </Section>
       </View>
