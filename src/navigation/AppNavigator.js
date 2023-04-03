@@ -1,5 +1,5 @@
 import { React, useEffect, useState } from "react";
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import {
   createDrawerNavigator,
   DrawerContentScrollView,
@@ -28,7 +28,7 @@ import {
   Text,
   Button,
   TextInput,
-  Picker
+  Picker,
 } from "react-native-rapi-ui";
 import TabBarIcon from "../components/utils/TabBarIcon";
 import TabBarText from "../components/utils/TabBarText";
@@ -177,7 +177,10 @@ export default () => {
     return fields;
   };
 
-  const notificationList = ["FBLA State Leadership Conference", "Prom: Under the Tuscan Sky"];
+  const notificationList = [
+    "FBLA State Leadership Conference",
+    "Prom: Under the Tuscan Sky",
+  ];
   function CustomDrawerContent(props) {
     return (
       <DrawerContentScrollView
@@ -271,17 +274,17 @@ export default () => {
   const LogInPage = () => {
     const checkIfLoggedIn = async () => {
       try {
-        const value = await AsyncStorage.getItem('userData');
-        if(value){
+        const value = await AsyncStorage.getItem("userData");
+        if (value) {
           setloggedIn(true);
         }
-      } catch(e) {
+      } catch (e) {
         // error reading value
       }
-    }
+    };
 
     checkIfLoggedIn();
-    
+
     const { isDarkmode } = useTheme();
     const [user, setUser] = useState(null);
     const [accessToken, setAccessToken] = useState(null);
@@ -315,8 +318,8 @@ export default () => {
       if (user) {
         await saveUserInfo("userData", JSON.stringify(user));
         setloggedIn(true);
+      }
     };
-  }
 
     const getUserInfo = async () => {
       if (user) {
@@ -333,12 +336,12 @@ export default () => {
 
     const saveUserInfo = async (key, value) => {
       try {
-        await AsyncStorage.setItem(key, value)
+        await AsyncStorage.setItem(key, value);
         return;
       } catch (e) {
         // saving error
       }
-    }
+    };
 
     const LoggingIn = () => {
       getUserInfo();
@@ -389,54 +392,102 @@ export default () => {
           { label: "9th Grade", value: "9" },
           { label: "10th Grade", value: "10" },
           { label: "11th Grade", value: "11" },
-          { label: "12th Grade", value: "12" }
+          { label: "12th Grade", value: "12" },
         ];
         const [rolePickerValue, setRolePickerValue] = useState(null);
         const roleItems = [
           { label: "Student", value: "student" },
           { label: "Parent", value: "parent" },
-          { label: "Teacher", value: "teacher" }
+          { label: "Teacher", value: "teacher" },
         ];
 
         return (
           <View
-            style={{ flex: 1, alignItems: "center", justifyContent: "flex-start" }}
+            style={{
+              flex: 1,
+              alignItems: "center",
+              justifyContent: "flex-start",
+            }}
           >
-            <Text style={{ fontSize: 35, fontWeight: "bold", marginTop: 20, marginBottom: 20 }}>
+            <Text
+              style={{
+                fontSize: 35,
+                fontWeight: "bold",
+                marginTop: 20,
+                marginBottom: 20,
+              }}
+            >
               Create a New Account
             </Text>
             <TextInput value={name} onChangeText={(val) => setName(val)} />
-            <TextInput value={username} onChangeText={(val) => setUsername(val)} />
+            <TextInput
+              value={username}
+              onChangeText={(val) => setUsername(val)}
+            />
             <TextInput value={school} onChangeText={(val) => setSchool(val)} />
-            <Picker borderWidth={1} items={roleItems} value={rolePickerValue} placeholder="Role" onValueChange={(val) => {
+            <Picker
+              borderWidth={1}
+              items={roleItems}
+              value={rolePickerValue}
+              placeholder="Role"
+              onValueChange={(val) => {
                 setRolePickerValue(val);
               }}
             />
-            {rolePickerValue == "student" &&
-              <Picker borderWidth={1} items={gradeItems} value={gradePickerValue} placeholder="Grade" onValueChange={(val) => {
-                setGradePickerValue(val);
+            {rolePickerValue == "student" && (
+              <Picker
+                borderWidth={1}
+                items={gradeItems}
+                value={gradePickerValue}
+                placeholder="Grade"
+                onValueChange={(val) => {
+                  setGradePickerValue(val);
                 }}
               />
-            }
+            )}
             <Button
               text="Submit"
               status="primary"
               onPress={async () => {
                 //console.log(user.id + name + username + rolePickerValue + gradePickerValue)
-                if(name != "Full Name" && username != "Username" && school != "School" && rolePickerValue != null){
-                  if(rolePickerValue == "student" && gradePickerValue != null){
+                if (
+                  name != "Full Name" &&
+                  username != "Username" &&
+                  school != "School" &&
+                  rolePickerValue != null
+                ) {
+                  if (
+                    rolePickerValue == "student" &&
+                    gradePickerValue != null
+                  ) {
                     setUser(null);
                     setCreatingAccount(true);
-                    var response = await createUser(user.id, name, username, rolePickerValue, school, Number(gradePickerValue), user.picture)
+                    var response = await createUser(
+                      user.id,
+                      name,
+                      username,
+                      rolePickerValue,
+                      school,
+                      Number(gradePickerValue),
+                      user.picture
+                    );
                     setUser(response);
                     saveUserInfo("userData", JSON.stringify(user));
                     setHasAccount(true);
                     setCreatingAccount(false);
                     changeScreen();
-                  } else if(rolePickerValue != "student") {
+                  } else if (rolePickerValue != "student") {
                     setUser(null);
                     setCreatingAccount(true);
-                    var response = await createUser(user.id, name, username, rolePickerValue, school, 0, user.picture)
+                    var response = await createUser(
+                      user.id,
+                      name,
+                      username,
+                      rolePickerValue,
+                      school,
+                      0,
+                      user.picture
+                    );
                     setUser(response);
                     saveUserInfo("userData", JSON.stringify(user));
                     setHasAccount(true);

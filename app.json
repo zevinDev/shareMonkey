@@ -17,13 +17,14 @@
       "fallbackToCacheTimeout": 0,
       "url": "https://u.expo.dev/98ba2d51-70d0-49f9-82d5-bf2c5607191f"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.realziez.shareMonkey",
-      "buildNumber": "1.0.3"
+      "buildNumber": "1.0.3",
+      "infoPlist": {
+        "NSPhotoLibraryUsageDescription": "This app uses photos to create posts."
+      }
     },
     "web": {
       "favicon": "./assets/favicon.png"

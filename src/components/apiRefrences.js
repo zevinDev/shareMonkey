@@ -1,4 +1,5 @@
 import axios from "axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export const getUser = async (username) => {
   try {
@@ -9,7 +10,7 @@ export const getUser = async (username) => {
     newData = JSON.parse(newData);
     return newData;
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
 };
 
@@ -22,7 +23,7 @@ export const getUserFromID = async (id) => {
     newData = JSON.parse(newData);
     return newData;
   } catch (error) {
-    if(error.response.status == 404) return false;
+    if (error.response.status == 404) return false;
     else console.log(error);
   }
 };
@@ -123,7 +124,15 @@ export const getAllEventsOnDay = async (date) => {
   }
 };
 
-export const createUser = async (id, name, username, role, school, year, profilePicture) => {
+export const createUser = async (
+  id,
+  name,
+  username,
+  role,
+  school,
+  year,
+  profilePicture
+) => {
   try {
     const data = await axios.post(
       `https://fbla-backend.casteel-fbla.repl.co/user`,
@@ -134,7 +143,7 @@ export const createUser = async (id, name, username, role, school, year, profile
         role: role,
         school: school,
         year: year,
-        profilePicture: profilePicture
+        profilePicture: profilePicture,
       }
     );
     var newData = JSON.stringify(data.data);
@@ -142,6 +151,28 @@ export const createUser = async (id, name, username, role, school, year, profile
     return newData;
   } catch (error) {
     console.log(error);
+    alert("Something went wrong.");
+  }
+};
+
+export const createPost = async (postPicture, description, tags) => {
+  const userData = JSON.parse(await AsyncStorage.getItem("userData"));
+  console.log(userData);
+  try {
+    const data = await axios.post(`https://fbla-backend.herokuapp.com/post`, {
+      username: userData.username,
+      name: userData.name,
+      postPicture: postPicture,
+      description: description,
+      tags: tags,
+      token: userData.token,
+      date: new Date(),
+    });
+    var newData = JSON.stringify(data.data);
+    newData = JSON.parse(newData);
+    return newData;
+  } catch (error) {
+    console.error(error);
     alert("Something went wrong.");
   }
 };
