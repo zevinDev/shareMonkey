@@ -59,7 +59,9 @@ export default function ({ navigation }) {
                 />
               }
               status="info"
-              onPress={() => navigation.navigate("Read")}
+              onPress={() =>                 Linking.openURL(
+                "https://docs.google.com/document/d/1J3qcj_f82YXiCPp9uWlE4vsweOkIZDmQnEzomcGVAt8/edit?usp=sharing"
+              )}
             />
             <Button
               style={{ marginTop: 10 }}
@@ -89,7 +91,9 @@ export default function ({ navigation }) {
                 />
               }
               status="info"
-              onPress={() => navigation.navigate("Documentation")}
+              onPress={() => Linking.openURL(
+                "https://github.com/REALziez/Frontend/#readme"
+              )}
             />
             <Button
               style={{ marginTop: 10 }}

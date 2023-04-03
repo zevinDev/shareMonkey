@@ -1,8 +1,8 @@
 import { React } from "react";
-import { WebView } from 'react-native-webview';
+import { Text } from "react-native-rapi-ui"
 
 export default function ({ navigation }) {
   return (
-  <WebView source={{ uri: 'https://github.com/REALziez/Frontend/#readme' }} style={{ flex: 1 }} />
+    <Text> Documentation </Text>
   );
 }
