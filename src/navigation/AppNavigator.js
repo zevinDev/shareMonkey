@@ -48,6 +48,8 @@ import Calendar from "../screens/Calendar";
 import Leaderboard from "../screens/Leaderboard";
 import Settings from "../screens/Settings";
 import Report from "../screens/Report";
+import Documentation from "../screens/Documentation";
+import Read from "../screens/Read";
 
 import * as WebBrowser from "expo-web-browser";
 import * as Google from "expo-auth-session/providers/google";
@@ -121,6 +123,12 @@ export default () => {
         <MainStack.Screen key="calendar" name="Calendar" component={Calendar} />
         <MainStack.Screen key="settings" name="Settings" component={Settings} />
         <MainStack.Screen key="report" name="Report" component={Report} />
+        <MainStack.Screen
+          key="documentation"
+          name="Documentation"
+          component={Documentation}
+        />
+        <MainStack.Screen key="read" name="Read" component={Read} />
       </MainStack.Navigator>
     );
   };

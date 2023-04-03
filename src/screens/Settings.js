@@ -59,11 +59,7 @@ export default function ({ navigation }) {
                 />
               }
               status="info"
-              onPress={() =>
-                Linking.openURL(
-                  "https://docs.google.com/document/d/1islII8aFrUpX8QuNwrhqWxEoy0qZib6THkdX4OoTjHI/edit?usp=sharing"
-                )
-              }
+              onPress={() => navigation.navigate("Read")}
             />
             <Button
               style={{ marginTop: 10 }}
@@ -93,11 +89,7 @@ export default function ({ navigation }) {
                 />
               }
               status="info"
-              onPress={() =>
-                Linking.openURL(
-                  "https://docs.google.com/document/d/1-3rgmJNG3j3tUugxHXUwFDY1Bw4bYt3JQTwiNz2Sc-8/edit"
-                )
-              }
+              onPress={() => navigation.navigate("Documentation")}
             />
             <Button
               style={{ marginTop: 10 }}
