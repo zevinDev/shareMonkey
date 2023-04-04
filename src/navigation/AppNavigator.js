@@ -566,13 +566,6 @@ export default () => {
                 style={{ width: 300, height: 40 }}
               />
             </TouchableOpacity>
-            <Button
-              text="Skip Log In"
-              onPress={() => {
-                setloggedIn(true);
-              }}
-              style={{ marginTop: 10 }}
-            />
           </Animated.View>
         </>
       );

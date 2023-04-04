@@ -105,16 +105,7 @@ export default function ({ navigation }) {
                   size="lg"
                   style={{ marginTop: -40, alignSelf: "center" }}
                 >
-                  {"Official Account Of The Share Monkey Team"}
-                </Text>
-              </SectionContent>
-              <SectionContent>
-                <Text
-                  fontWeight="bold"
-                  size="lg"
-                  style={{ marginTop: -10, alignSelf: "center" }}
-                >
-                  {"RSVP'd For: FBLA Regional Conference"}
+                  {"\n" + userData.description}
                 </Text>
               </SectionContent>
             </Section>

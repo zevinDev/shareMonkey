@@ -22,8 +22,8 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 export default function ({ navigation }) {
   const [posts, setPosts] = useState([]);
   const { isDarkmode, setTheme } = useTheme();
-  const [username, setUsername] = useState("test1");
-  const [token, setToken] = useState("8hl42ie18atptf2jkq42sm");
+  const [username, setUsername] = useState("s134535");
+  const [token, setToken] = useState("6ivu66k8t04k00o6he4pk");
   const [liked, setLiked] = useState(false);
   const [state, setState] = useState();
 
@@ -170,7 +170,7 @@ export default function ({ navigation }) {
   }
 
   const handleFeed = async () => {
-    const postList = await getFeed("test1");
+    const postList = await getFeed("s134535");
     if (postList) {
       var newTest = JSON.parse(postList);
       var postInfo = [];
