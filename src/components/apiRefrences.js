@@ -31,7 +31,7 @@ export const getUserFromID = async (id) => {
 export const getFeed = async (iUser) => {
   try {
     const data = await axios.get(
-      `https://fbla-backend.herokuapp.com/post/getFeed/${iUser}`
+      `https://fbla-backend.casteel-fbla.repl.co/post/getFeed/${iUser}`
     );
     const newData = JSON.stringify(data.data[0]);
     return newData;
