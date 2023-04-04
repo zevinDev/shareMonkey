@@ -27,14 +27,9 @@ export default function ({ navigation }) {
   const [liked, setLiked] = useState(false);
   const [state, setState] = useState();
 
-  const handle = async () => {
-    const value = JSON.parse(await AsyncStorage.getItem("userData"));
-    if (value) {
-      AsyncStorage.setItem("Username", value.username);
-      AsyncStorage.setItem("Token", value.token);
-      setUsername(value.username);
-      setToken(value.token);
-    }
+  const handle = () => {
+    AsyncStorage.setItem("Username", username);
+    AsyncStorage.setItem("Token", token);
   };
   const renderPosts = (posts, userInfo) => {
     var fields = [];
@@ -171,27 +166,27 @@ export default function ({ navigation }) {
 
   const handleFeed = async () => {
     const postList = await getFeed("s134535");
-    if (postList) {
-      var newTest = JSON.parse(postList);
-      var postInfo = [];
-      var userInfo = [];
-      for (var i = 0; i < newTest.length; i++) {
-        var currentPost = await getPost(newTest[i]);
-        var currentUser = await getUser(currentPost.username);
-        postInfo[i] = currentPost;
-        userInfo[i] = currentUser;
-        for (var l = 0; l < postInfo[i].likes.length; l++) {
-          var postLikes = postInfo[i].likes;
-          if (postLikes[l] == (await AsyncStorage.getItem("Username"))) {
-            postInfo[i].isLiked = true;
-            break;
-          } else postInfo[i].isLiked = false;
-        }
-        if (postInfo[i].likes.length == 0) postInfo[i].isLiked = false;
+    if(postList){
+    var newTest = JSON.parse(postList);
+    var postInfo = [];
+    var userInfo = [];
+    for (var i = 0; i < newTest.length; i++) {
+      var currentPost = await getPost(newTest[i]);
+      var currentUser = await getUser(currentPost.username);
+      postInfo[i] = currentPost;
+      userInfo[i] = currentUser;
+      for (var l = 0; l < postInfo[i].likes.length; l++) {
+        var postLikes = postInfo[i].likes;
+        if (postLikes[l] == (await AsyncStorage.getItem("Username"))) {
+          postInfo[i].isLiked = true;
+          break;
+        } else postInfo[i].isLiked = false;
       }
-      renderPosts(postInfo, userInfo);
-      return;
+      if (postInfo[i].likes.length == 0) postInfo[i].isLiked = false;
     }
+    renderPosts(postInfo, userInfo);
+    return;
+  }
   };
 
   const runOnce = () => {
